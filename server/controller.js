@@ -26,6 +26,8 @@ module.exports = {
         if (result) {
             req.session.user = user[0]
             return res.status(200).send({message: 'Logged in', user: req.session.user, loggedIn: true})
+        } else {
+            return res.status(400).send({message: 'incorrect password'})
         }
     },
     authMe: async (req, res) => {
