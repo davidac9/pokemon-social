@@ -7,5 +7,81 @@ $yellow: #f2dc5d;
 .Register {
     background: $landColor;
     height: calc(100vh - 100px);
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    > .cancel {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        > .Link > button {
+            margin: 20px 0px 0px 0px;
+            font-size: 20px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 25px;
+            width: 100px;
+            background: $red;
+            color: white;
+            transition: 500ms;
+        }
+        > .Link > button:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 10px $purple;
+            transition: 500ms;
+        }
+    }
+    > .container {
+        border: black solid 3px;
+        border-radius: 25px;
+        // padding: 10px;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 80px;
+        > h1 {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        > .inputs {
+            // border: black solid 3px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            > .username > input, .password > input, .profile-pic > input {
+                width: 180px;
+                height: 35px;
+                font-size: 20px;
+                padding-left: 8px;
+                border-radius: 25px;
+                border: none;
+                transition: 500ms
+            }
+        }
+        > button {
+            margin: 20px 0px 0px 0px;
+            font-size: 20px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 25px;
+            width: 100px;
+            background: blue;
+            color: white;
+            transition: 500ms;
+        }
+        > button:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 10px $purple;
+            transition: 500ms;
+        }
+    }
 }

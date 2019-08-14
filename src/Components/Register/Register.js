@@ -33,22 +33,27 @@ class Register extends Component {
     render() {
         return (
             <div className="Register">
-                <div className='username'>
-                    <h3>username</h3>
-                    <input type="text" onChange={e => this.handleChange(e, 'usernameInput')} />
+                <div className="container">  
+                    <h1>Register</h1>
+                    <div className="inputs">
+                        <div className='username'>
+                        <input type="text" placeholder="Username" onChange={e => this.handleChange(e, 'usernameInput')} />
+                        </div>
+                        <div className='password'>
+                        <input type="password" placeholder="Password" onChange={e => this.handleChange(e, 'passwordInput' )} />
+                        </div>
+                        <div className='profile-pic'>
+                        <input type="text" placeholder="Profile image URL" onChange={e => this.handleChange(e, 'profilePicInput' )} />
+                        </div>
+                    </div>
+                    <button onClick={this.register}>Submit</button>
                 </div>
-                <div className='password'>
-                    <h3>password</h3>
-                    <input type="password" onChange={e => this.handleChange(e, 'passwordInput' )} />
+                <div className="cancel">
+                    <h4>Already have an account? Click here!</h4>
+                    <Link className="Link" to="/">
+                        <button>Cancel</button>
+                    </Link>
                 </div>
-                <div className='profile-pic'>
-                    <h3>Profile image url</h3>
-                    <input type="text" onChange={e => this.handleChange(e, 'profilePicInput' )} />
-                </div>
-                <button onClick={this.register}>submit</button>
-                <Link to="/">
-                    <button>Cancel</button>
-                </Link>
             </div>
         )
     }

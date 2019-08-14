@@ -36,11 +36,9 @@ class Landing extends Component {
                     <h1>Login</h1>
                     <div className="inputs">
                         <div className="username">
-                            {/* <h2>Username</h2> */}
                             <input type="text" placeholder="Username" onChange={e =>this.handleChange(e, 'usernameInput')}/>
                         </div>
                             <div className="password">
-                                {/* <h2>Password</h2> */}
                                 <input type="password" placeholder="Password" onChange={e =>this.handleChange(e, 'passwordInput')}/>
                             </div>
                          </div>
