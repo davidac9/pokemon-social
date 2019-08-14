@@ -3,6 +3,19 @@ $red: #a4031f;
 $purple: #240b36;
 $yellow: #f2dc5d;
 
+
+.side-box {
+    height: calc(100vh - 100px);
+    width: 128px;
+    background: black;
+    z-index: 1;
+    position: fixed;
+    > img {
+        max-height: 128px;
+        border-radius: 25px;
+        border: black solid 3px
+    }
+}
 .Nav {
     background: $red;
     display: flex;

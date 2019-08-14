@@ -10,19 +10,32 @@ class Nav extends Component {
             this.props.logoutUser()
         })
     }
+    componentDidMount() {
+        axios.get('/api/auth/me').then(res => {
+            if(res.data.user) {
+                const {username, profile_pic, trainer_id} = res.data.user
+                this.props.setUser({username, profile_pic, trainer_id})
+            }
+        })
+    }
     render() {
         return (
-            <div className='Nav'>
-                <h1>Poké</h1>
-                {this.props.username !== '' ? 
-                <>
-                <img src={this.props.profile_pic} alt='' />
-                    <Link to='/' >
-                        <button onClick={this.logout} >Logout</button>
-                    </Link>
-                </>
+            <div className='true-nav'>
+                <div className='Nav'>
+                    <h1>Poké</h1>
+                </div>
+                    {this.props.username !== '' ?
+                    <>
+                        <div className="side-box">
 
-            : null}
+                        <img src={this.props.profile_pic} alt='' />
+                        <Link to='/' >
+                            <button onClick={this.logout} >Logout</button>
+                        </Link>
+                        </div>
+                    </>
+                
+                : null}
             </div>
         )
     }

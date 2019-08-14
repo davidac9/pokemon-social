@@ -23,6 +23,7 @@ app.post('/api/auth/register', authCtrl.register)
 app.post('/api/auth/login', authCtrl.login)
 app.get('/api/auth/me', authCtrl.authMe)
 app.post('/api/auth/logout', authCtrl.logout)
+
 app.get('/api/posts', postCtrl.getPosts )
 
 massive(CONNECTION_STRING).then(db => {
