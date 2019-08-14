@@ -11,18 +11,22 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "massive": "^5.11.2",
+    "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "sass": "^1.22.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "scss": "node-sass --watch scss -o css",
     "eject": "react-scripts eject"
+
   },
   "eslintConfig": {
     "extends": "react-app"

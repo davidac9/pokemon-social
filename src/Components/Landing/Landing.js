@@ -24,7 +24,6 @@ class Landing extends Component {
         axios.post('/api/auth/login', {username, password}).then(res => {
             const {username, trainer_id, profile_pic} = res.data.user
             this.props.setUser({username, trainer_id, profile_pic})
-            console.log(res.data.user)
             this.props.history.push('/dashboard')
         })
         .catch(err => {alert('login failed')})
@@ -33,13 +32,28 @@ class Landing extends Component {
     render() {
         return (
             <div className="Landing">
-                <h3>Login</h3>
-                <input type="text" onChange={e =>this.handleChange(e, 'usernameInput')}/>
-                <input type="password" onChange={e =>this.handleChange(e, 'passwordInput')}/>
-                <button onClick={this.login} >Login</button>
-                    <Link to="/register" >
-                        <button>Register</button>
-                    </Link>
+                <div className="login">
+                    <h1>Login</h1>
+                    <div className="inputs">
+                        <div className="username">
+                            {/* <h2>Username</h2> */}
+                            <input type="text" placeholder="Username" onChange={e =>this.handleChange(e, 'usernameInput')}/>
+                        </div>
+                            <div className="password">
+                                {/* <h2>Password</h2> */}
+                                <input type="password" placeholder="Password" onChange={e =>this.handleChange(e, 'passwordInput')}/>
+                            </div>
+                         </div>
+                        <button className="login-button" onClick={this.login} >Submit</button>
+                    
+                </div>
+                    <div className="buttons">
+                        <h4>New user? Sign up here!</h4>
+                        <Link className="Link" to="/register" >
+                            <button className="register-button">Register</button>
+                        </Link>
+                    </div>
+
 
             </div>
         )

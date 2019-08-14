@@ -27,7 +27,7 @@ class Register extends Component {
             this.props.setUser({username, trainer_id, profile_pic})
             this.props.history.push('/dashboard')
         })
-        // .catch(err => {alert('u is not registered try again')})
+        .catch(err => {alert('Failed to register. Try again')})
         
     }
     render() {
@@ -46,6 +46,9 @@ class Register extends Component {
                     <input type="text" onChange={e => this.handleChange(e, 'profilePicInput' )} />
                 </div>
                 <button onClick={this.register}>submit</button>
+                <Link to="/">
+                    <button>Cancel</button>
+                </Link>
             </div>
         )
     }
