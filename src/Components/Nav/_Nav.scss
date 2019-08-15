@@ -10,10 +10,13 @@ $yellow: #f2dc5d;
     background: black;
     z-index: 1;
     position: fixed;
-    > img {
+    > .my-profile-link > .profile-pic {
         max-height: 128px;
         border-radius: 25px;
         border: black solid 3px
+    }
+    > .my-profile-link > .profile-pic:hover {
+        cursor: pointer;
     }
 }
 .Nav {

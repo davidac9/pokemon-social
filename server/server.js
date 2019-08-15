@@ -5,6 +5,7 @@ const session = require('express-session')
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 const authCtrl = require('./authController')
 const postCtrl = require('./postController')
+const pokemonCtrl = require('./pokemonController')
 
 const app = express()
 
@@ -27,6 +28,11 @@ app.post('/api/auth/logout', authCtrl.logout)
 // endpoints for posts
 app.get('/api/posts', postCtrl.getPosts)
 app.post('/api/posts', postCtrl.addPost)
+
+// pokemon endpoints
+app.post('/api/pokemon', pokemonCtrl.addPokemon )
+app.get('/api/pokemon', pokemonCtrl.getTrainerPokemon)
+app.get('/api/trainers', pokemonCtrl.getProfilePic)
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

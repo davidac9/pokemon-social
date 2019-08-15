@@ -12,6 +12,7 @@ class Dashboard extends Component {
         postInput: '',
 
     }
+
     getPosts = () => {
         axios.get(`/api/posts?username=${this.state.searchInput}`).then(posts =>
             // console.log(posts)
@@ -55,14 +56,17 @@ class Dashboard extends Component {
         return (
             <div className="Dashboard">
                 <div className="new-post-container">
-                    <textarea className="post-input" type="text" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput}/>
+                    <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput}/>
                     <button onClick={this.addPost}>add post</button>
                 </div>
                 <h1>dashboard</h1>
                 {this.state.posts.map((el, i) => (
                     <div className="post" key={i}>
-                        <p>{el.username}</p>
-                        <img className="user-pic" src={el.profile_pic} alt=""/>
+                        <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className="post-user">
+                            <p>{el.username}</p>
+                            <img className="user-pic" src={el.profile_pic} alt=""/>
+                        <img className="user-pic" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"} alt="" />
+                        </div>
                         <span>
                             {el.post_text}
                         </span>    

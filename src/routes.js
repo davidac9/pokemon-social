@@ -13,6 +13,6 @@ export default (
         <Route path='/register' component={Register} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/my-profile' component={MyProfile} />
-        <Route path='/profile/:profileid' component={Profile} />
+        <Route path='/profile/:username' component={Profile} />
     </Switch>
 )

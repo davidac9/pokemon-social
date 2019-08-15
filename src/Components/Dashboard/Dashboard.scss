@@ -16,9 +16,10 @@ $landColor: #db9065;
         position: fixed;
         left: 140px;
         top: 150px;
+        
         > .post-input {
-            height: 100px;
-            width: 300px;
+            height: 50px;
+            width: 200px;
             overflow-wrap: break-word;
             word-break: break-all;
             overflow: hidden;
@@ -28,27 +29,50 @@ $landColor: #db9065;
             font-size: 24px;
             font-family: sans-serif;
             background: whitesmoke;
+            transition: 500ms;
+            
+        }
+        > .post-input:focus {
+            height: 300px;
+            width: 250px;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+            border-radius: 15px;
+            border:none;
+            padding: 10px;
+            font-size: 24px;
+            font-family: sans-serif;
+            background: whitesmoke;
+            transition: 500ms;
         }
     }
-    .post {
+    >.post {
         border: black solid 3px;
         border-radius: 5px;
         width: 450px;
+        
         background: whitesmoke;
         margin-bottom: 10px;
         padding: 25px;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: flex-start;
+        > .post-user > .user-pic {
+            width: 64px;
+            height: 64px;
+            border-radius: 15px;
+            // border: black solid 2px;
+
+        }
+        > .post-user > p {
+            text-decoration: underline;
+        }
+        > span {
+            overflow-wrap: break-word; 
+            height: 100px;
+            // border: black solid 3px;
+            font-size: 24px;
     }
-    .post > .user-pic {
-        max-height: 64px;
-        border-radius: 15px;
-    }
-    .post > p {
-        text-decoration: underline;
-    }
-    .post > span {
-        overflow-wrap: break-word; 
-        height: 100px;
-        // border: black solid 3px;
-        font-size: 24px;
     }
 }
