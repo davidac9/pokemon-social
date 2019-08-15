@@ -24,10 +24,24 @@ class MyProfile extends Component {
         allPokemon: [],
         profilePic: [],
         addPokemon: false,
+        pokemonSelected: false,
+        pokemonSelectedID: 0,
+        pokemonSelectedName: ''
     }
     toggleAdd = () => {
         this.setState({
             addPokemon: !this.state.addPokemon
+        })
+    }
+    toggleSelect = (pokemonID, pokemonName) => {
+        if (this.state.pokemonSelected === false) {
+            this.setState({
+                pokemonSelected: true
+            })
+        }
+        this.setState({
+            pokemonSelectedID: pokemonID,
+            pokemonSelectedName: pokemonName
         })
     }
     getPokemon = () => {
@@ -46,24 +60,42 @@ class MyProfile extends Component {
             )
     }
     getAllPokemon = () => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`).then(res => {
-            // this.setState({
-            //     allPokemon: res.data
-            // })
-            console.log(res)
+        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807`).then(res => {
+            this.setState({
+                allPokemon: res.data.results
+            })
+            
         })
         .catch(err => console.log(err))
     }
+    addPokemon = () => {
+        const body = {
+            trainer_id: this.props.trainer_id,
+            pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`,
+            nick_name: this.state.pokemonName
+        }
+        axios.post(`/api/pokemon`, body).then(res => {
+
+        })
+        .catch(err => {alert('something went wrong please try again')})
+    }
     componentDidMount() {
         this.getProfilePic()
-        // this.getAllPokemon()
+        this.getAllPokemon()
         this.getPokemon()
     }
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => (
-            <div key={i}>
+            <div className="my-pokemon" key={i}>
                 <h4>{el.nick_name}</h4>
                 <img src={el.pokemon_image} alt=""/>
+            </div>
+        ))
+        const allPokemonMap = this.state.allPokemon.map((el, i) => (
+            <div className='add-pokemon' key={i}>
+                <h4 onClick={() => this.toggleSelect(i+1, el.name)}>{el.name}</h4>
+                {/* <img className="pokemon-pic" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`} alt=""/> */}
+
             </div>
         ))
         return (
@@ -78,7 +110,12 @@ class MyProfile extends Component {
                 ))}
                 <button onClick={this.toggleAdd}>add pokemon</button>
 
-                {this.state.addPokemon ? (<div className="pokemon-list">hey</div>) : null }
+                {this.state.addPokemon ? (<div><div className="pokemon-list">
+                {allPokemonMap}
+                </div>
+                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`} alt=""/>
+                <button onClick={this.addPokemon}>Catch pokemon!</button>
+                </div>) : null }
 
                 {pokemonMap}
             </div>
@@ -86,8 +123,8 @@ class MyProfile extends Component {
     }
 }
 function mapStateToProps(reduxState) {
-    const {username} = reduxState
-    return {username}
+    const {username, trainer_id} = reduxState
+    return {username, trainer_id}
 }
 
 export default connect(mapStateToProps, {setUser})(withRouter(MyProfile))
