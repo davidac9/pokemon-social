@@ -35,7 +35,8 @@ app.get('/api/pokemon', pokemonCtrl.getTrainerPokemon) // get all of a user's po
 app.get('/api/trainers', pokemonCtrl.getProfilePic) // gets a user's profile pic to display on the page
 app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // lets the user select a favorite pokemon
 app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // gets a user's favorite pokemon
-app.delete('/api/pokemon', pokemonCtrl.releasePokemon)
+app.delete('/api/pokemon', pokemonCtrl.releasePokemon) // deletes pokemon from a user's inventory
+app.put('/api/pokemon', pokemonCtrl.renamePokemon) // back end stuff works. go make that axios stuff work
 
 
 massive(CONNECTION_STRING).then(db => {

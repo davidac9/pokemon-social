@@ -43,5 +43,13 @@ module.exports = {
         }
         const deletedPokemon = await db.delete_pokemon({trainer_id, pokemon_id})
         return res.status(200).send(deletedPokemon)
+    },
+    renamePokemon: async(req, res) => {
+        const db = req.app.get('db')
+        const {pokemon_id} = req.query
+        const {nick_name} = req.body
+
+        const nick = db.update_nick_name({nick_name, pokemon_id})
+        return res.status(200).send(nick)
     }
 }

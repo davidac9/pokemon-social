@@ -124,6 +124,9 @@ class MyProfile extends Component {
         })
 
     }
+    rename(pokemon_id) {
+        // put the rename function stuff in here
+    }
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => ( // this displays a user's pokemon
             
