@@ -1,21 +1,7 @@
-// import React, {Component} from 'react'
-
-// export default class MyProfile extends Component {
-//     componentDidMount() {
-
-//     }
-//     render() {
-//         return (
-//             <div className="MyProfile" >
-//                 My Profile
-//             </div>
-//         )
-//     }
-// }
-import React, {Component } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
-import {setUser} from '../../ducks/reducer'
-import {withRouter} from 'react-router-dom'
+import { setUser } from '../../ducks/reducer'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 class MyProfile extends Component {
@@ -26,14 +12,30 @@ class MyProfile extends Component {
         addPokemon: false,
         pokemonSelected: false,
         pokemonSelectedID: 0,
-        pokemonSelectedName: ''
+        nick_name: '',
+        shiny: false,
+        pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`
     }
-    toggleAdd = () => {
+    toggleAdd = () => { // this function makes the content for adding a pokemon appear or disappear
         this.setState({
             addPokemon: !this.state.addPokemon
+
         })
     }
-    toggleSelect = (pokemonID, pokemonName) => {
+    toggleShiny = () => { // this toggles the shininess of a pokemon and updates the image
+        if (this.state.shiny === false) {
+            this.setState({
+                shiny: !this.state.shiny,
+                pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${this.state.pokemonSelectedID}.png`
+            })
+        } else {
+            this.setState({
+                shiny: !this.state.shiny,
+                pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`
+            })
+        }
+    }
+    toggleSelect = (pokemonID, pokemonName) => { // makes input boxes appear when you select a pokemon and it is supposed to make a pokemon appear in the image
         if (this.state.pokemonSelected === false) {
             this.setState({
                 pokemonSelected: true
@@ -41,81 +43,110 @@ class MyProfile extends Component {
         }
         this.setState({
             pokemonSelectedID: pokemonID,
-            pokemonSelectedName: pokemonName
+            nick_name: pokemonName,
+            pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
         })
+
     }
-    getPokemon = () => {
-        axios.get(`/api/pokemon?username=${this.props.username}`).then(pokemon => 
+    getPokemon = () => { // this function makes the user's pokemon appear on the page
+        axios.get(`/api/pokemon?username=${this.props.username}`).then(pokemon =>
             this.setState({
                 myPokemon: pokemon.data
             })
-            )
+        )
             .catch(err => console.log(`couldn't find pokemon`))
     }
-    getProfilePic = () => {
+    getProfilePic = () => { // this gets the users profile picture so it will display on the page
         axios.get(`/api/trainers?username=${this.props.username}`).then(pic =>
             this.setState({
                 profilePic: pic.data
             })
-            )
+        )
     }
-    getAllPokemon = () => {
+    getAllPokemon = () => { // this gets every pokemon name and puts them in the list that appears in the add pokemon menu
         axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807`).then(res => {
             this.setState({
                 allPokemon: res.data.results
             })
-            
-        })
-        .catch(err => console.log(err))
-    }
-    addPokemon = () => {
-        const body = {
-            trainer_id: this.props.trainer_id,
-            pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`,
-            nick_name: this.state.pokemonName
-        }
-        axios.post(`/api/pokemon`, body).then(res => {
 
         })
-        .catch(err => {alert('something went wrong please try again')})
+            .catch(err => console.log(err))
+    }
+    addPokemon = () => { // this adds the selected pokemon from the list to the user's pokemon then calls the function to get the user's pokemon and profile pic
+        const { trainer_id } = this.props
+        const { nick_name, pokemon_image } = this.state
+        axios.post(`/api/pokemon`, { trainer_id, pokemon_image, nick_name }).then(res => {
+
+        })
+            .catch(err => { alert('something went wrong please try again') })
+        this.setState({
+            addPokemon: false,
+            pokemonSelected: false,
+            pokemonSelectedID: 0,
+            nick_name: '',
+            shiny: false,
+            pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${0}.png`
+        })
+        this.getPokemon()
+        this.getProfilePic()
+    }
+    handleChange(e, key) { // this is for handling change in input boxes. Right now it's only for the pokemon nicknames
+        this.setState({
+            [key]: e.target.value
+        })
     }
     componentDidMount() {
         this.getProfilePic()
         this.getAllPokemon()
         this.getPokemon()
     }
+    shinyCheck = () => { // this checks if a selected pokemon is shiny or not and updates the pokemon image
+        if (this.state.shiny === true) {
+            this.setState({
+                pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${this.state.pokemonSelectedID}.png`
+
+            })
+        } else {
+            this.setState({
+                pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`
+            })
+        }
+    }
     render() {
-        const pokemonMap = this.state.myPokemon.map((el, i) => (
+        const pokemonMap = this.state.myPokemon.map((el, i) => ( // this displays a user's pokemon
             <div className="my-pokemon" key={i}>
                 <h4>{el.nick_name}</h4>
-                <img src={el.pokemon_image} alt=""/>
+                <img src={el.pokemon_image} alt="" />
             </div>
         ))
-        const allPokemonMap = this.state.allPokemon.map((el, i) => (
+        const allPokemonMap = this.state.allPokemon.map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
             <div className='add-pokemon' key={i}>
-                <h4 onClick={() => this.toggleSelect(i+1, el.name)}>{el.name}</h4>
-                {/* <img className="pokemon-pic" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`} alt=""/> */}
+                <h4 onClick={() => this.toggleSelect(i + 1, el.name)}>{el.name}</h4>
 
             </div>
         ))
         return (
             <div className="MyProfile">
-                {/* {this.props.username === this.props.match.params.username ? 
-                (<button>edit profile</button>) : null} */}
-                <h1>{this.props.username}</h1>
+                <h1 onClick={() => console.log(this.state)}>{this.props.username}</h1>
                 {this.state.profilePic.map((el, i) => (
                     <div key={i}>
-                        <img src={el.profile_pic} alt=""/>
+                        <img src={el.profile_pic} alt="" />
                     </div>
                 ))}
                 <button onClick={this.toggleAdd}>add pokemon</button>
 
                 {this.state.addPokemon ? (<div><div className="pokemon-list">
-                {allPokemonMap}
+                    {allPokemonMap}
                 </div>
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonSelectedID}.png`} alt=""/>
-                <button onClick={this.addPokemon}>Catch pokemon!</button>
-                </div>) : null }
+                    {this.state.pokemonSelected ?
+                        <div className="input-container">
+                            <h1>Name your pokemon here!</h1>
+                            <input type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
+                            <input type="checkbox" onChange={this.toggleShiny} />
+                        </div> : null}
+                    <img src={this.state.pokemon_image} alt="" />
+                    <button onClick={this.addPokemon}>Catch pokemon!</button>
+                </div>) : null}
 
                 {pokemonMap}
             </div>
@@ -123,8 +154,8 @@ class MyProfile extends Component {
     }
 }
 function mapStateToProps(reduxState) {
-    const {username, trainer_id} = reduxState
-    return {username, trainer_id}
+    const { username, trainer_id } = reduxState
+    return { username, trainer_id }
 }
 
-export default connect(mapStateToProps, {setUser})(withRouter(MyProfile))
+export default connect(mapStateToProps, { setUser })(withRouter(MyProfile))
