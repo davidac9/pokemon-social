@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
-const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const authCtrl = require('./authController')
 const postCtrl = require('./postController')
 const pokemonCtrl = require('./pokemonController')
@@ -30,9 +30,13 @@ app.get('/api/posts', postCtrl.getPosts)
 app.post('/api/posts', postCtrl.addPost)
 
 // pokemon endpoints
-app.post('/api/pokemon', pokemonCtrl.addPokemon )
-app.get('/api/pokemon', pokemonCtrl.getTrainerPokemon)
-app.get('/api/trainers', pokemonCtrl.getProfilePic)
+app.post('/api/pokemon', pokemonCtrl.addPokemon) // add a pokemon to a user's profile
+app.get('/api/pokemon', pokemonCtrl.getTrainerPokemon) // get all of a user's pokemon
+app.get('/api/trainers', pokemonCtrl.getProfilePic) // gets a user's profile pic to display on the page
+app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // lets the user select a favorite pokemon
+app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // gets a user's favorite pokemon
+app.delete('/api/pokemon', pokemonCtrl.releasePokemon)
+
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

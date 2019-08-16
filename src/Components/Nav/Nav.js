@@ -28,7 +28,7 @@ class Nav extends Component {
                     <>
                         <div className="side-box">
 
-                        <Link className="my-profile-link" to='/my-profile'>
+                        <Link className="my-profile-link" to={`/my-profile/${this.props.username}`}>
                             <img className="profile-pic" src={this.props.profile_pic} alt='' />
                         </Link>
                         <Link to='/' >

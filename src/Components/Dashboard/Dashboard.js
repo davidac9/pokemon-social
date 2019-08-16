@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios';
-import {withRouter, Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {setUser} from '../../ducks/reducer'
+import { withRouter, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setUser } from '../../ducks/reducer'
 
 
 class Dashboard extends Component {
@@ -17,9 +17,9 @@ class Dashboard extends Component {
         axios.get(`/api/posts?username=${this.state.searchInput}`).then(posts =>
             // console.log(posts)
             this.setState({
-                posts: posts.data.sort((a, b) => {return b.post_id-a.post_id})
+                posts: posts.data.sort((a, b) => { return b.post_id - a.post_id })
             })
-            )
+        )
             .catch(err => (console.log(`can't find posts`)))
     }
     handleChange(e, key) {
@@ -39,10 +39,10 @@ class Dashboard extends Component {
                 trainer_id: this.props.trainer_id,
                 post_text: this.state.postInput
             }
-            axios.post(`/api/posts`, body ).then({
-                
+            axios.post(`/api/posts`, body).then({
+
             })
-            .catch(err => alert(`Oops! Your post couldn't be posted! Try again!`))
+                .catch(err => alert(`Oops! Your post couldn't be posted! Try again!`))
             this.setState({
                 postInput: ''
             })
@@ -56,7 +56,7 @@ class Dashboard extends Component {
         return (
             <div className="Dashboard">
                 <div className="new-post-container">
-                    <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput}/>
+                    <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput} />
                     <button onClick={this.addPost}>add post</button>
                 </div>
                 <h1>dashboard</h1>
@@ -64,12 +64,12 @@ class Dashboard extends Component {
                     <div className="post" key={i}>
                         <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className="post-user">
                             <p>{el.username}</p>
-                            <img className="user-pic" src={el.profile_pic} alt=""/>
-                        <img className="user-pic" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"} alt="" />
+                            <img className="user-pic" src={el.profile_pic} alt="" />
+                            <img className="user-pic" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"} alt="" />
                         </div>
                         <span>
                             {el.post_text}
-                        </span>    
+                        </span>
                     </div>
                 ))}
             </div>
@@ -77,8 +77,8 @@ class Dashboard extends Component {
     }
 }
 function mapStateToProps(reduxState) {
-    const {username, profile_pic, trainer_id} = reduxState
-    return {username, profile_pic, trainer_id}
+    const { username, profile_pic, trainer_id } = reduxState
+    return { username, profile_pic, trainer_id }
 }
 
-export default connect(mapStateToProps, {setUser})(withRouter(Dashboard))
+export default connect(mapStateToProps, { setUser })(withRouter(Dashboard))

@@ -43,8 +43,9 @@
     ]
   },
   "nodemonConfig": {
-    "ignore": ["src/*",
-              "public/*"
-              ]
+    "ignore": [
+      "src/*",
+      "public/*"
+    ]
   }
 }
