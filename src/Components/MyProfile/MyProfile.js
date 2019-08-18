@@ -15,6 +15,8 @@ class MyProfile extends Component {
         pokemonSelectedID: 0,
         nick_name: '',
         shiny: false,
+        editPokemon: false,
+        editPokemonID: 0,
         pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`
     }
     toggleAdd = () => { // this function makes the content for adding a pokemon appear or disappear
@@ -50,11 +52,12 @@ class MyProfile extends Component {
 
     }
     getPokemon = () => { // this function makes the user's pokemon appear on the page
-        const {username} = this.props
-        axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon =>{
+        const { username } = this.props
+        axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
                 myPokemon: pokemon.data
-            })}
+            })
+        }
         )
             .catch(err => console.log(`couldn't find pokemon`))
     }
@@ -88,8 +91,7 @@ class MyProfile extends Component {
             pokemonSelectedID: 0,
             nick_name: '',
             shiny: false,
-            editPokemon: false,
-            editPokemonID: 0,
+
             pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${0}.png`
         })
 
@@ -104,6 +106,13 @@ class MyProfile extends Component {
             editPokemon: true,
             editPokemonID: pokemonID
         })
+    }
+    cancelEdit() {
+        this.setState({
+            editPokemon: false,
+            editPokemonID: 0
+        })
+        this.getPokemon()
     }
     componentDidMount() {
         this.getProfilePic()
@@ -127,10 +136,10 @@ class MyProfile extends Component {
             this.getPokemon()
             this.getProfilePic()
         })
-        .catch(err => {
-            alert(`you can't delete your favorite pokemon!`)
-            console.log(`couldn't delete`)
-        })
+            .catch(err => {
+                alert(`you can't delete your favorite pokemon!`)
+                console.log(`couldn't delete`)
+            })
 
     }
     rename(pokemon_id) {
@@ -138,14 +147,17 @@ class MyProfile extends Component {
     }
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => ( // this displays a user's pokemon
-            
-                <Pokemon
+
+            <Pokemon
+                key={i}
                 editFn={() => this.handleChangeEdit(el.pokemon_id)}
+                cancelEditFn={() => this.cancelEdit()}
                 pokemon={el}
                 releaseFn={() => this.releasePokemon(el.pokemon_id)}
                 editID={this.state.editPokemonID}
                 edit={this.state.editPokemon}
-                />
+                getPokemonFn={() => this.getPokemon()}
+            />
             //             <div className="my-pokemon" key={i}>
             //     <h4>{el.nick_name}</h4>
             //     <img onClick={() => this.releasePokemon(el.pokemon_id)} src={el.pokemon_image} alt="" />

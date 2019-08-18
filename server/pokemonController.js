@@ -48,7 +48,8 @@ module.exports = {
         const db = req.app.get('db')
         const {pokemon_id} = req.query
         const {nick_name} = req.body
-
+        console.log(req.query)
+        console.log(req.body)
         const nick = db.update_nick_name({nick_name, pokemon_id})
         return res.status(200).send(nick)
     }

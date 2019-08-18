@@ -20,6 +20,7 @@ app.use(session({
     }
 }))
 
+// endpoints for auth
 app.post('/api/auth/register', authCtrl.register)
 app.post('/api/auth/login', authCtrl.login)
 app.get('/api/auth/me', authCtrl.authMe)
