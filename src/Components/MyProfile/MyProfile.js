@@ -7,6 +7,8 @@ import Pokemon from '../Pokemon/Pokemon'
 
 class MyProfile extends Component {
     state = {
+        editProfilePic: false,
+        profile_pic: ``,
         myPokemon: [],
         allPokemon: [],
         profilePic: [],
@@ -18,6 +20,25 @@ class MyProfile extends Component {
         editPokemon: false,
         editPokemonID: 0,
         pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`
+    }
+    getNewProfilePic = (username, profile_pic, trainer_id) => {
+        this.props.setUser({ username, profile_pic, trainer_id })
+        this.toggleEditProfilePic()
+    }
+    updateProfilePic = () => {
+        const { trainer_id, username } = this.props
+        const { profile_pic } = this.state
+
+        axios.put(`/api/profile-pics`, { profile_pic, trainer_id }).then(
+            this.getNewProfilePic(username, profile_pic, trainer_id)
+        )
+            .catch(err => console.log(`it no workie`))
+    }
+    toggleEditProfilePic = () => {
+        this.setState({
+            editProfilePic: !this.state.editProfilePic,
+            newProfilePic: ``
+        })
     }
     toggleAdd = () => { // this function makes the content for adding a pokemon appear or disappear
         this.setState({
@@ -55,7 +76,7 @@ class MyProfile extends Component {
         const { username } = this.props
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
-                myPokemon: pokemon.data.sort((a, b) => {return a.pokemon_id - b.pokemon_id})
+                myPokemon: pokemon.data.sort((a, b) => { return a.pokemon_id - b.pokemon_id })
             })
         }
         )
@@ -142,9 +163,6 @@ class MyProfile extends Component {
             })
 
     }
-    rename(pokemon_id) {
-        // put the rename function stuff in here
-    }
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => ( // this displays a user's pokemon
 
@@ -178,6 +196,17 @@ class MyProfile extends Component {
                     </div>
                 ))} */}
                 <img src={this.props.profile_pic} alt="" />
+                {this.state.editProfilePic ? (
+                    <>
+                        <input type="text" onChange={e => this.handleChange(e, 'profile_pic')} />
+                        <button onClick={this.updateProfilePic} >Confirm</button>
+                        <button onClick={this.toggleEditProfilePic} >Cancel</button>
+                    </>) : (
+                        <>
+                            <button onClick={this.toggleEditProfilePic}>change profile pic</button>
+                        </>
+                    )}
+
                 <button onClick={this.toggleAdd}>add pokemon</button>
 
                 {this.state.addPokemon ? (<div><div className="pokemon-list">
