@@ -27,9 +27,10 @@ export default class Pokemon extends Component {
 
     cancelName = () => {
         this.props.cancelEditFn()
-        this.setState({
-            nick_name:''
-        })
+        // this.setState({
+        //     nick_name:''
+        // })
+        this.setName()
     }
     updateName = () => {
         const {nick_name} = this.state

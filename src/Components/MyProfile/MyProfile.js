@@ -55,7 +55,7 @@ class MyProfile extends Component {
         const { username } = this.props
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
-                myPokemon: pokemon.data
+                myPokemon: pokemon.data.sort((a, b) => {return a.pokemon_id - b.pokemon_id})
             })
         }
         )
