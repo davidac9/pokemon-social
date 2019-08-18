@@ -50,5 +50,11 @@ module.exports = {
         const {nick_name} = req.body
         const nick = db.update_nick_name({nick_name, pokemon_id})
         return res.status(200).send(nick)
+    },
+    updateFavorite: async(req, res) => {
+        const db = req.app.get('db')
+        const {pokemon_id, trainer_id} = req.body
+        const favorite = db.update_favorite({pokemon_id, trainer_id})
+        return res.status(200).send(favorite)
     }
 }

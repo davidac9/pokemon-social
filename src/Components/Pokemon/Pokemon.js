@@ -39,6 +39,13 @@ export default class Pokemon extends Component {
         )
         .catch(err => console.log(`it fail`))
     }
+    updateFavorite = () => {
+        const {trainer_id, pokemon_id} = this.props.pokemon
+        axios.put(`/api/favorite/pokemon`, {pokemon_id, trainer_id}).then(
+            console.log('eyo')
+        )
+        .catch(err => console.log(`couldn't delete pokemon`))
+    }
     render() {
         const { pokemon, releaseFn, editID, edit, editFn } = this.props
         return (
@@ -48,6 +55,7 @@ export default class Pokemon extends Component {
                     <button onClick={this.updateName} >Confirm</button>
                     {/* <h4>{pokemon.nick_name}</h4> */}
                     <img src={pokemon.pokemon_image} alt="" />
+                    <button onClick={this.updateFavorite}>Favorite</button>
                     <button onClick={() => releaseFn()}>release</button>
                     <button onClick={() => this.cancelName()} >Cancel</button>
                 </>)
