@@ -42,9 +42,9 @@ app.delete('/api/pokemon', pokemonCtrl.releasePokemon) // deletes pokemon from a
 app.put('/api/pokemon', pokemonCtrl.renamePokemon) // back end stuff works. go make that axios stuff work
 
 // favorite pokemon endpoints
-app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // lets the user select a favorite pokemon
-app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // gets a user's favorite pokemon
-app.put(`/api/favorite/pokemon`, pokemonCtrl.updateFavorite)
+app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // this sets the user's first pokemon as their favorite
+app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // this needs to be changed
+app.put(`/api/favorite/pokemon`, pokemonCtrl.updateFavorite) // lets the user change their favorite pokemon
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
