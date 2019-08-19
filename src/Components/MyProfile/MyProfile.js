@@ -156,10 +156,10 @@ class MyProfile extends Component {
         }
     }
     releasePokemon(pokemon_id) {
-        axios.delete(`/api/pokemon?trainer_id=${this.props.trainer_id}&pokemon_id=${pokemon_id}`).then(res => {
+        axios.delete(`/api/pokemon?trainer_id=${this.props.trainer_id}&pokemon_id=${pokemon_id}`).then(
             this.getPokemon()
-            this.getProfilePic()
-        })
+            // this.getProfilePic()
+        )
             .catch(err => {
                 alert(`you can't delete your favorite pokemon!`)
                 console.log(`couldn't delete`)
@@ -179,20 +179,20 @@ class MyProfile extends Component {
     }
     render() {
         const pokemonMap = this.state.myPokemon
-        .filter(el => el.pokemon_id !== this.state.myFavoriteID)
-        .map((el, i) => ( // this displays a user's pokemon
+            // .filter(el => el.pokemon_id !== this.state.myFavoriteID)
+            .map((el, i) => ( // this displays a user's pokemon
 
-            <Pokemon
-                key={i}
-                editFn={() => this.handleChangeEdit(el.pokemon_id)}
-                cancelEditFn={() => this.cancelEdit()}
-                pokemon={el}
-                releaseFn={() => this.releasePokemon(el.pokemon_id)}
-                editID={this.state.editPokemonID}
-                edit={this.state.editPokemon}
-                getPokemonFn={() => this.getPokemon()}
-            />
-        ))
+                <Pokemon
+                    key={i}
+                    editFn={() => this.handleChangeEdit(el.pokemon_id)}
+                    cancelEditFn={() => this.cancelEdit()}
+                    pokemon={el}
+                    releaseFn={() => this.releasePokemon(el.pokemon_id)}
+                    editID={this.state.editPokemonID}
+                    edit={this.state.editPokemon}
+                    getPokemonFn={() => this.getPokemon()}
+                />
+            ))
         const favoriteMap = this.state.myFavorite.map((el, i) => ( // this is the same as pokemonMap except it is only used for displaying the favorite pokemon
             <Pokemon
                 key={i}

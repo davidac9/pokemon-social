@@ -6,7 +6,9 @@ export default class Pokemon extends Component {
         super(props)
         this.state = {
             editName: false,
-            nick_name: ''
+            nick_name: '',
+            type1: '',
+            type2: ''
         }
     }
     setName = () => {
@@ -17,6 +19,8 @@ export default class Pokemon extends Component {
 
     componentDidMount() {
         this.setName()
+        this.getType(this.props.pokemon.pokemon_image.replace(/\D/g, ''))
+        // console.log(this.state.type1)
     }
 
     handleChange(e) {
@@ -44,17 +48,27 @@ export default class Pokemon extends Component {
         axios.put(`/api/favorite/pokemon`, { pokemon_id, trainer_id }).then(() => {
             this.props.cancelEditFn()
             this.props.getPokemonFn()
+            this.props.getType()
         }
         )
             .catch(err => console.log(`couldn't delete pokemon`))
+    }
+    getType = (pokedexID) => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokedexID}`).then(res => {
+            // console.log(res.data.types.filter(el => el.slot === 1)[0].type.name)
+            this.setState({ type1: res.data.types.filter(el => el.slot === 1)[0].type.name })
+            // console.log(this.state.type1)
+        })
+            .catch(err => console.log(`couldn't update type`))
     }
     render() {
         const { pokemon, releaseFn, editID, edit, editFn } = this.props
         return (
             <div className="my-pokemon" >
                 <div className="content" >
+                    <h4>{this.state.type1}</h4>
                     <h4 onClick={() => editFn()}>{pokemon.nick_name}</h4>
-                    <img className="pokemon-image" onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
+                    <img className={`pokemon-image ${this.state.type1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
                     {edit === true && editID === pokemon.pokemon_id ? (<>
                         <h4>Change name here</h4>
@@ -62,7 +76,10 @@ export default class Pokemon extends Component {
                         <div className="button-container">
                             <button onClick={this.updateName} >Confirm</button>
                             <button onClick={this.updateFavorite}>Favorite</button>
-                            <button onClick={() => releaseFn()}>release</button>
+                            <button onClick={() => {
+                                releaseFn()
+                                this.props.getPokemonFn()
+                            }}>release</button>
                             <button onClick={() => this.cancelName()} >Cancel</button>
                         </div>
                     </>)
