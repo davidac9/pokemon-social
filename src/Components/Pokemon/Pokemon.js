@@ -11,7 +11,7 @@ export default class Pokemon extends Component {
     }
     setName = () => {
         this.setState({
-            nick_name: this.props.pokemon.nick_name
+            nick_name: ''
         })
     }
 
@@ -33,41 +33,45 @@ export default class Pokemon extends Component {
         this.setName()
     }
     updateName = () => {
-        const {nick_name} = this.state
-        axios.put(`/api/pokemon?pokemon_id=${this.props.pokemon.pokemon_id}`, {nick_name}).then(
-            this.props.cancelEditFn()
+        const { nick_name } = this.state
+        axios.put(`/api/pokemon?pokemon_id=${this.props.pokemon.pokemon_id}`, { nick_name }).then(
+            this.cancelName()
         )
-        .catch(err => console.log(`it fail`))
+            .catch(err => console.log(`something went wrong with updating the nick name`))
     }
     updateFavorite = () => {
-        const {trainer_id, pokemon_id} = this.props.pokemon
-        axios.put(`/api/favorite/pokemon`, {pokemon_id, trainer_id}).then(
-            console.log('eyo')
+        const { trainer_id, pokemon_id } = this.props.pokemon
+        axios.put(`/api/favorite/pokemon`, { pokemon_id, trainer_id }).then(() => {
+            this.props.cancelEditFn()
+            this.props.getPokemonFn()
+        }
         )
-        .catch(err => console.log(`couldn't delete pokemon`))
+            .catch(err => console.log(`couldn't delete pokemon`))
     }
     render() {
         const { pokemon, releaseFn, editID, edit, editFn } = this.props
         return (
             <div className="my-pokemon" >
-                {edit === true && editID === pokemon.pokemon_id ? (<>
-                    <input type="text" onChange={e => this.handleChange(e)} value={this.state.nick_name}/>
-                    <button onClick={this.updateName} >Confirm</button>
-                    {/* <h4>{pokemon.nick_name}</h4> */}
-                    <img src={pokemon.pokemon_image} alt="" />
-                    <button onClick={this.updateFavorite}>Favorite</button>
-                    <button onClick={() => releaseFn()}>release</button>
-                    <button onClick={() => this.cancelName()} >Cancel</button>
-                </>)
+                <div className="content" >
+                    <h4 onClick={() => editFn()}>{pokemon.nick_name}</h4>
+                    <img className="pokemon-image" onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
-                    :
-
-                    (<>
-                        <div onClick={() => editFn()} >
-                            <h4>{pokemon.nick_name}</h4>
-                            <img src={pokemon.pokemon_image} alt="" />
+                    {edit === true && editID === pokemon.pokemon_id ? (<>
+                        <h4>Change name here</h4>
+                        <input type="text" onChange={e => this.handleChange(e)} value={this.state.nick_name} />
+                        <div className="button-container">
+                            <button onClick={this.updateName} >Confirm</button>
+                            <button onClick={this.updateFavorite}>Favorite</button>
+                            <button onClick={() => releaseFn()}>release</button>
+                            <button onClick={() => this.cancelName()} >Cancel</button>
                         </div>
-                    </>)}
+                    </>)
+
+                        :
+
+                        (<>
+                        </>)}
+                </div>
 
             </div >
         )

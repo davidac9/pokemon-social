@@ -10,6 +10,8 @@ class MyProfile extends Component {
         editProfilePic: false,
         profile_pic: ``,
         myPokemon: [],
+        myFavorite: [],
+        myFavoriteID: 0,
         allPokemon: [],
         profilePic: [],
         addPokemon: false,
@@ -25,7 +27,7 @@ class MyProfile extends Component {
         this.props.setUser({ username, profile_pic, trainer_id })
         this.toggleEditProfilePic()
     }
-    updateProfilePic = () => {
+    updateProfilePic = () => { // changes the user's profile pic
         const { trainer_id, username } = this.props
         const { profile_pic } = this.state
 
@@ -34,7 +36,7 @@ class MyProfile extends Component {
         )
             .catch(err => console.log(`it no workie`))
     }
-    toggleEditProfilePic = () => {
+    toggleEditProfilePic = () => { //opens and closes the interface for updating the user's profile pic
         this.setState({
             editProfilePic: !this.state.editProfilePic,
             newProfilePic: ``
@@ -73,22 +75,22 @@ class MyProfile extends Component {
 
     }
     getPokemon = () => { // this function makes the user's pokemon appear on the page
-        const { username } = this.props
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
                 myPokemon: pokemon.data.sort((a, b) => { return a.pokemon_id - b.pokemon_id })
             })
+            this.getFavorite()
         }
         )
             .catch(err => console.log(`couldn't find pokemon`))
     }
-    getProfilePic = () => { // this gets the users profile picture so it will display on the page
-        axios.get(`/api/trainers?username=${this.props.username}`).then(pic =>
-            this.setState({
-                profilePic: pic.data
-            })
-        )
-    }
+    // getProfilePic = () => { // this used to be used to display the user's profile pic but I don't think it's necessary anymore 
+    //     axios.get(`/api/trainers?username=${this.props.username}`).then(pic =>
+    //         this.setState({
+    //             profilePic: pic.data
+    //         })
+    //     )
+    // }
     getAllPokemon = () => { // this gets every pokemon name and puts them in the list that appears in the add pokemon menu
         axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807`).then(res => {
             this.setState({
@@ -103,7 +105,8 @@ class MyProfile extends Component {
         const { nick_name, pokemon_image } = this.state
         axios.post(`/api/pokemon`, { trainer_id, pokemon_image, nick_name }).then(res => {
             this.getPokemon()
-            this.getProfilePic()
+            // this.getProfilePic()
+
         })
             .catch(err => { alert('something went wrong please try again') })
         this.setState({
@@ -122,21 +125,21 @@ class MyProfile extends Component {
             [key]: e.target.value
         })
     }
-    handleChangeEdit(pokemonID) {
+    handleChangeEdit(pokemonID) { // opens the interface for editing a pokemon
         this.setState({
             editPokemon: true,
             editPokemonID: pokemonID
         })
     }
-    cancelEdit() {
+    cancelEdit() { // closes the interface for editing a pokemon
         this.setState({
             editPokemon: false,
             editPokemonID: 0
         })
         this.getPokemon()
     }
-    componentDidMount() {
-        this.getProfilePic()
+    componentDidMount() { // on mount functions run to get the list of all pokemon and the array of the user's pokemon
+        // this.getProfilePic()
         this.getAllPokemon()
         this.getPokemon()
     }
@@ -163,8 +166,21 @@ class MyProfile extends Component {
             })
 
     }
+    getFavorite = () => {
+        axios.get(`/api/favorite/pokemon?trainer_id=${this.props.trainer_id}`).then(res => {
+            // console.log(res)
+            this.setState({
+                myFavorite: res.data,
+                myFavoriteID: res.data[0].pokemon_id
+            })
+        }
+        )
+            .catch(err => console.log(`couldn't get favorite`))
+    }
     render() {
-        const pokemonMap = this.state.myPokemon.map((el, i) => ( // this displays a user's pokemon
+        const pokemonMap = this.state.myPokemon
+        .filter(el => el.pokemon_id !== this.state.myFavoriteID)
+        .map((el, i) => ( // this displays a user's pokemon
 
             <Pokemon
                 key={i}
@@ -176,10 +192,18 @@ class MyProfile extends Component {
                 edit={this.state.editPokemon}
                 getPokemonFn={() => this.getPokemon()}
             />
-            //             <div className="my-pokemon" key={i}>
-            //     <h4>{el.nick_name}</h4>
-            //     <img onClick={() => this.releasePokemon(el.pokemon_id)} src={el.pokemon_image} alt="" />
-            // </div>
+        ))
+        const favoriteMap = this.state.myFavorite.map((el, i) => ( // this is the same as pokemonMap except it is only used for displaying the favorite pokemon
+            <Pokemon
+                key={i}
+                editFn={() => this.handleChangeEdit(el.pokemon_id)}
+                cancelEditFn={() => this.cancelEdit()}
+                pokemon={el}
+                releaseFn={() => this.releasePokemon(el.pokemon_id)}
+                editID={this.state.editPokemonID}
+                edit={this.state.editPokemon}
+                getPokemonFn={() => this.getPokemon()}
+            />
         ))
         const allPokemonMap = this.state.allPokemon.map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
             <div className='add-pokemon' key={i}>
@@ -190,12 +214,7 @@ class MyProfile extends Component {
         return (
             <div className="MyProfile">
                 <h1 onClick={() => console.log(this.state)}>{this.props.username}</h1>
-                {/* {this.state.profilePic.map((el, i) => (
-                    <div key={i}>
-                        <img src={el.profile_pic} alt="" />
-                    </div>
-                ))} */}
-                <img src={this.props.profile_pic} alt="" />
+                <img className="profile-pic" src={this.props.profile_pic} alt="" />
                 {this.state.editProfilePic ? (
                     <>
                         <input type="text" onChange={e => this.handleChange(e, 'profile_pic')} />
@@ -221,7 +240,7 @@ class MyProfile extends Component {
                     <img src={this.state.pokemon_image} alt="" />
                     <button onClick={this.addPokemon}>Catch pokemon!</button>
                 </div>) : null}
-
+                {favoriteMap}
                 {pokemonMap}
             </div>
         )

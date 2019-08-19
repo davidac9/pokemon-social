@@ -29,11 +29,11 @@ module.exports = {
         const favorite = await db.insert_favorite({trainer_id, pokemon_id})
         return res.status(200).send(favorite)
     },
-    getFavorite: async (req, res) => {
-        const db = req.app.get('db')
-        const favorite = await db.select_favorite(req.query.trainer_id)
-        return res.status(200).send(favorite)
-    },
+    // getFavorite: async (req, res) => {
+    //     const db = req.app.get('db')
+    //     const favorite = await db.select_favorite(req.query.trainer_id)
+    //     return res.status(200).send(favorite)
+    // },
     releasePokemon: async (req, res) => {
         const db = req.app.get('db')
         const {trainer_id, pokemon_id} = req.query
@@ -55,6 +55,11 @@ module.exports = {
         const db = req.app.get('db')
         const {pokemon_id, trainer_id} = req.body
         const favorite = db.update_favorite({pokemon_id, trainer_id})
+        return res.status(200).send(favorite)
+    },
+    getFavorite: async (req, res) => {
+        const db = req.app.get('db')
+        const favorite = await db.select_favorite(req.query.trainer_id)
         return res.status(200).send(favorite)
     }
 }

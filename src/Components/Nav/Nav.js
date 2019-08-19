@@ -23,10 +23,9 @@ class Nav extends Component {
             <div className='true-nav'>
                 <div className='Nav'>
                     <h1 onClick={() => this.props.history.push('/dashboard')}>Poké</h1>
-                </div>
                     {this.props.username !== '' ?
                     <>
-                        <div className="side-box">
+                        {/* <div className="side-box"> */}
 
                         <Link className="my-profile-link" to={`/my-profile/${this.props.username}`}>
                             <img className="profile-pic" src={this.props.profile_pic} alt='' />
@@ -34,10 +33,12 @@ class Nav extends Component {
                         <Link to='/' >
                             <button onClick={this.logout} >Logout</button>
                         </Link>
-                        </div>
+                        {/* </div> */}
                     </>
                 
                 : null}
+                </div>
+                    
             </div>
         )
     }

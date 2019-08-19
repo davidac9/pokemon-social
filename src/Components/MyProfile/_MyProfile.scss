@@ -1,8 +1,18 @@
+$font: 'Fredoka One';
+$red: #a4031f;
+$purple: #240b36;
+$yellow: #f2dc5d;
+
 .MyProfile {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100vw;
+    background: $yellow;
+    > .profile-pic {
+        max-width: 100vw;
+    }
 }
 .pokemon-list {
     width: 200px;

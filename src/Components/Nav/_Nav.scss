@@ -6,7 +6,7 @@ $yellow: #f2dc5d;
 
 .side-box {
     height: calc(100vh - 100px);
-    width: 128px;
+    width: 0px;
     background: black;
     z-index: 1;
     position: fixed;
@@ -19,12 +19,16 @@ $yellow: #f2dc5d;
         cursor: pointer;
     }
 }
+.true-nav {
+    width: 100%;
+}
 .Nav {
     background: $red;
     display: flex;
     justify-content: center;
     align-content: center;
     height: 100px;
+    // width: 100vw;
     > h1 {
         display:flex;
         align-content: center;
@@ -36,6 +40,11 @@ $yellow: #f2dc5d;
         color: $yellow;
         // text-decoration-style: wavy;
         -webkit-text-stroke-width: 2px;
-        -webkit-text-stroke-color: $purple 
+        -webkit-text-stroke-color: $purple ;
+
     }
+
+}
+.profile-pic {
+    max-width: 32px;
 }
