@@ -22,21 +22,23 @@ class Nav extends Component {
         return (
             <div className='true-nav'>
                 <div className='Nav'>
-                    <h1 onClick={() => this.props.history.push('/dashboard')}>Poké</h1>
                     {this.props.username !== '' ?
                     <>
                         {/* <div className="side-box"> */}
 
                         <Link className="my-profile-link" to={`/my-profile/${this.props.username}`}>
                             <img className="profile-pic" src={this.props.profile_pic} alt='' />
-                        </Link>
-                        <Link to='/' >
-                            <button onClick={this.logout} >Logout</button>
+                        </Link >
+                    <h1 className="poke" onClick={() => this.props.history.push('/dashboard')}>Poké</h1>
+                        <Link className="logout-link" to='/' >
+                            <button className="logout-button" onClick={this.logout} >X</button>
                         </Link>
                         {/* </div> */}
                     </>
                 
-                : null}
+                : 
+                null
+                }
                 </div>
                     
             </div>

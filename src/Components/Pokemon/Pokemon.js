@@ -70,7 +70,7 @@ export default class Pokemon extends Component {
                     <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
                     {edit === true && editID === pokemon.pokemon_id ? (<>
-                        <h4>Change name here</h4>
+                        <h4>Change {pokemon.nick_name}'s name here</h4>
                         <input type="text" onChange={e => this.handleChange(e)} value={this.state.nick_name} />
                         <div className="button-container">
                             <button onClick={this.updateName} >Confirm</button>

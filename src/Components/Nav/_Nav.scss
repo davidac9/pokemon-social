@@ -25,11 +25,17 @@ $yellow: #f2dc5d;
 .Nav {
     background: $red;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-content: center;
     height: 100px;
+    // width: calc(100vw - 40px);
     // width: 100vw;
-    > h1 {
+    >.poke:hover {
+        cursor: pointer;
+        // background: green;
+    
+    }
+    > .poke {
         display:flex;
         align-content: center;
         justify-content: center;
@@ -41,10 +47,44 @@ $yellow: #f2dc5d;
         // text-decoration-style: wavy;
         -webkit-text-stroke-width: 2px;
         -webkit-text-stroke-color: $purple ;
+     
+    }
+    >a {
+        // height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    > .logout-link:hover {
+        cursor: pointer;
 
     }
+    > .logout-link {
+        margin-right: 1rem;
+        text-decoration: none;
+        > .logout-button:hover {
+            cursor: pointer;
 
-}
-.profile-pic {
-    max-width: 32px;
+        }
+        > .logout-button {
+            height: 64px;
+            width: 64px;
+            border-radius: 50px;
+            font-size: 2rem;
+            text-decoration: none;
+            font-family: $font;
+            color: whitesmoke;
+            background: red;
+        }
+    }
+    > .my-profile-link {
+        padding-left: 1rem;
+        > .profile-pic {
+            max-height: 64px;
+            max-width: 64px;
+            border-radius: 50px;
+        }
+    }
+
 }

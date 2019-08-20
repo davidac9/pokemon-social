@@ -2,13 +2,92 @@ $font: 'Fredoka One';
 $red: #a4031f;
 $purple: #240b36;
 $yellow: #f2dc5d;
+$gray: #565554;
+
+@mixin inputs($height, $width, $font-size) {
+    height: $height;
+    width: $width;
+    font-size: $font-size;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    margin: 25px;
+    transition: 500ms;
+    
+
+}
+@mixin input-focus($shadow-color) {
+    box-shadow: 0px 0px 10px $shadow-color;
+    transition: 500ms;
+}
+.profile-pic-input {
+    transition: 500ms;
+    @include inputs(50px, 200px, 20px)
+}
+.profile-pic-input:focus {
+    @include input-focus($purple)
+}
+.search-input {
+    @include inputs(50px, 200px, 20px)
+}
+.search-input:focus {
+    @include input-focus($purple)
+}
+@mixin buttons($width, $background-color) {
+    color: white;
+    background: $background-color;
+    border: none;
+    height: 45px;
+    border-radius: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: sans-serif;
+    font-size: 20px;
+    transition: 500ms;
+    margin: 15px;
+}
+
+@mixin buttons-hover($shadow-color){
+    cursor: pointer;
+    box-shadow: 0px 0px 10px $shadow-color;
+    transition: 500ms;
+}
+
+.new-pic-button {
+    @include buttons(100px, $gray);
+    margin: 20px;
+}
+.new-pic-button:hover {
+    @include buttons-hover($gray)
+}
+
+.confirm-pic, .catch-button {
+    @include buttons(100px, blue)
+}
+.confirm-pic:hover, .catch-button:hover {
+    @include buttons-hover(blue)
+}
+.cancel-pic {
+    @include buttons(100px, $red)
+}
+.cancel-pic:hover {
+    @include buttons-hover($red)
+}
+.find-button {
+    @include buttons(100px, $purple)
+}
+.find-button:hover {
+    @include buttons-hover($purple)
+}
+
 
 .MyProfile {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
+    // max-width: calc(100vw - 40px);
     background: $yellow;
     padding-bottom: 90px;
     > .profile-pic {
@@ -17,8 +96,11 @@ $yellow: #f2dc5d;
 }
 .pokemon-list {
     width: 200px;
-    height: 200px;
+    height: 250px;
     overflow: auto;
     text-align: center;
-
+    background: whitesmoke;
+    > .add-pokemon > .pokemon-name {
+        font-size: 1.5rem;
+    }
 }
