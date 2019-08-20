@@ -48,7 +48,7 @@ export default class Pokemon extends Component {
         axios.put(`/api/favorite/pokemon`, { pokemon_id, trainer_id }).then(() => {
             this.props.cancelEditFn()
             this.props.getPokemonFn()
-            this.props.getType()
+            // this.props.getType()
         }
         )
             .catch(err => console.log(`couldn't delete pokemon`))
@@ -79,6 +79,7 @@ export default class Pokemon extends Component {
                             <button onClick={() => {
                                 releaseFn()
                                 this.props.getPokemonFn()
+                                this.getType()
                             }}>release</button>
                             <button onClick={() => this.cancelName()} >Cancel</button>
                         </div>

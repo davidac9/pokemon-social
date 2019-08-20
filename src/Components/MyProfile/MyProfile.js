@@ -77,7 +77,8 @@ class MyProfile extends Component {
     getPokemon = () => { // this function makes the user's pokemon appear on the page
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
-                myPokemon: pokemon.data.sort((a, b) => { return a.pokemon_id - b.pokemon_id })
+                myPokemon: pokemon.data
+                // .sort((a, b) => { return a.pokemon_id - b.pokemon_id })
             })
             this.getFavorite()
         }
