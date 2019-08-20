@@ -21,7 +21,8 @@ class MyProfile extends Component {
         shiny: false,
         editPokemon: false,
         editPokemonID: 0,
-        pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`
+        pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`,
+        type_1: '',
     }
     getNewProfilePic = (username, profile_pic, trainer_id) => {
         this.props.setUser({ username, profile_pic, trainer_id })
@@ -72,6 +73,12 @@ class MyProfile extends Component {
             nick_name: pokemonName,
             pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
         })
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`).then(pokemon => 
+        this.setState({
+            type_1: pokemon.data.types.filter(el => el.slot === 1)[0].type.name
+        })
+        )
+        
 
     }
     getPokemon = () => { // this function makes the user's pokemon appear on the page
@@ -103,8 +110,8 @@ class MyProfile extends Component {
     }
     addPokemon = () => { // this adds the selected pokemon from the list to the user's pokemon then calls the function to get the user's pokemon and profile pic
         const { trainer_id } = this.props
-        const { nick_name, pokemon_image } = this.state
-        axios.post(`/api/pokemon`, { trainer_id, pokemon_image, nick_name }).then(res => {
+        const { nick_name, pokemon_image, type_1 } = this.state
+        axios.post(`/api/pokemon`, { trainer_id, pokemon_image, nick_name, type_1 }).then(res => {
             this.getPokemon()
             // this.getProfilePic()
 
@@ -178,6 +185,14 @@ class MyProfile extends Component {
         )
             .catch(err => console.log(`couldn't get favorite`))
     }
+    // getType = (pokedexID) => {
+    //     axios.get(`https://pokeapi.co/api/v2/pokemon/${pokedexID}`).then(res => {
+    //         // console.log(res.data.types.filter(el => el.slot === 1)[0].type.name)
+    //         this.setState({ type1: res.data.types.filter(el => el.slot === 1)[0].type.name })
+    //         // console.log(this.state.type1)
+    //     })
+    //         .catch(err => console.log(`couldn't update type`))
+    // }
     render() {
         const pokemonMap = this.state.myPokemon
             // .filter(el => el.pokemon_id !== this.state.myFavoriteID)

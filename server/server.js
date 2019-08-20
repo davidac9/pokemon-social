@@ -43,7 +43,7 @@ app.put('/api/pokemon', pokemonCtrl.renamePokemon) // back end stuff works. go m
 
 // favorite pokemon endpoints
 app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // this sets the user's first pokemon as their favorite
-app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // this needs to be changed
+app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // displays a user's favorite pokemon
 app.put(`/api/favorite/pokemon`, pokemonCtrl.updateFavorite) // lets the user change their favorite pokemon
 
 massive(CONNECTION_STRING).then(db => {

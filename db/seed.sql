@@ -20,7 +20,8 @@ CREATE TABLE my_pokemon (
     pokemon_id SERIAL PRIMARY KEY,
     trainer_id INT REFERENCES trainers(trainer_id),
     pokemon_image TEXT,
-    nick_name VARCHAR(15)
+    nick_name VARCHAR(15),
+    type_1 VARCHAR(15)
 );
 
 CREATE TABLE favorite_pokemon (

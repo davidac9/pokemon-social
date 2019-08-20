@@ -61,6 +61,7 @@ class Dashboard extends Component {
                 </div>
                 <h1>dashboard</h1>
                 {this.state.posts.map((el, i) => (
+                    
                     <div className="post" key={i}>
                         <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className="post-user">
                             <p>{el.username}</p>

@@ -48,7 +48,7 @@ export default class Pokemon extends Component {
         axios.put(`/api/favorite/pokemon`, { pokemon_id, trainer_id }).then(() => {
             this.props.cancelEditFn()
             this.props.getPokemonFn()
-            // this.props.getType()
+            this.props.getType(this.props.pokemon.pokemon_image.replace(/\D/g, ''))
         }
         )
             .catch(err => console.log(`couldn't delete pokemon`))
@@ -66,9 +66,8 @@ export default class Pokemon extends Component {
         return (
             <div className="my-pokemon" >
                 <div className="content" >
-                    <h4>{this.state.type1}</h4>
                     <h4 onClick={() => editFn()}>{pokemon.nick_name}</h4>
-                    <img className={`pokemon-image ${this.state.type1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
+                    <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
                     {edit === true && editID === pokemon.pokemon_id ? (<>
                         <h4>Change name here</h4>
