@@ -23,6 +23,7 @@ class MyProfile extends Component {
         editPokemonID: 0,
         pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`,
         type_1: '',
+        pokemonSearch: ''
     }
     getNewProfilePic = (username, profile_pic, trainer_id) => {
         this.props.setUser({ username, profile_pic, trainer_id })
@@ -221,9 +222,14 @@ class MyProfile extends Component {
                 getPokemonFn={() => this.getPokemon()}
             />
         ))
-        const allPokemonMap = this.state.allPokemon.map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
+        const allPokemonMap = this.state.allPokemon
+        .filter(el => el.name.includes(this.state.pokemonSearch)) // checks to see if the pokemon name contains this.state.pokemonSearch
+        .map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
             <div className='add-pokemon' key={i}>
-                <h4 onClick={() => this.toggleSelect(i + 1, el.name)}>{el.name}</h4>
+                <h4 onClick={() => 
+                    console.log(el)
+                    // this.toggleSelect(i + 1, el.name)
+                    }>{el.name}</h4>
 
             </div>
         ))
@@ -243,8 +249,10 @@ class MyProfile extends Component {
                     )}
 
                 <button onClick={this.toggleAdd}>add pokemon</button>
-
+                        
                 {this.state.addPokemon ? (<div><div className="pokemon-list">
+                <input type="text" onChange={e => this.handleChange(e, 'pokemonSearch')}/>
+
                     {allPokemonMap}
                 </div>
                     {this.state.pokemonSelected ?
