@@ -23,7 +23,8 @@ class MyProfile extends Component {
         editPokemonID: 0,
         pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png`,
         type_1: '',
-        pokemonSearch: ''
+        pokemonSearch: '',
+        nameCheck: '',
     }
     getNewProfilePic = (username, profile_pic, trainer_id) => {
         this.props.setUser({ username, profile_pic, trainer_id })
@@ -72,16 +73,17 @@ class MyProfile extends Component {
         this.setState({
             // pokemonSelectedID: pokemonID,
             nick_name: pokemonName,
+            nameCheck: pokemonName,
             // pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
         })
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(pokemon => 
-        this.setState({
-            pokemonSelectedID: pokemon.data.id,
-            pokemon_image: pokemon.data.sprites.front_default,
-            type_1: pokemon.data.types.filter(el => el.slot === 1)[0].type.name
-        })
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(pokemon =>
+            this.setState({
+                pokemonSelectedID: pokemon.data.id,
+                pokemon_image: pokemon.data.sprites.front_default,
+                type_1: pokemon.data.types.filter(el => el.slot === 1)[0].type.name
+            })
         )
-        
+
 
     }
     getPokemon = () => { // this function makes the user's pokemon appear on the page
@@ -103,7 +105,7 @@ class MyProfile extends Component {
     //     )
     // }
     getAllPokemon = () => { // this gets every pokemon name and puts them in the list that appears in the add pokemon menu
-        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807`).then(res => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=802`).then(res => {
             this.setState({
                 allPokemon: res.data.results
             })
@@ -126,7 +128,7 @@ class MyProfile extends Component {
             pokemonSelectedID: 0,
             nick_name: '',
             shiny: false,
-            pokemonSearch:'',
+            pokemonSearch: '',
             pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${0}.png`
         })
 
@@ -213,32 +215,39 @@ class MyProfile extends Component {
                 />
             ))
         const favoriteMap = this.state.myFavorite
-        
-        .map((el, i) => ( // this is the same as pokemonMap except it is only used for displaying the favorite pokemon
-            <Pokemon
-                key={i}
-                editFn={() => this.handleChangeEdit(el.pokemon_id)}
-                cancelEditFn={() => this.cancelEdit()}
-                pokemon={el}
-                releaseFn={() => this.releasePokemon(el.pokemon_id)}
-                editID={this.state.editPokemonID}
-                edit={this.state.editPokemon}
-                getPokemonFn={() => this.getPokemon()}
-            />
-        ))
-        const allPokemonMap = this.state.allPokemon
-        .filter(el => el.name.includes(this.state.pokemonSearch)) // checks to see if the pokemon name contains this.state.pokemonSearch
-        .map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
-            <div className='add-pokemon' key={i}>
-                <h4
-                className="pokemon-name"
-                onClick={() => 
-                    // console.log(el)
-                    this.toggleSelect(i + 1, el.name)
-                    }>{el.name}</h4>
 
-            </div>
-        ))
+            .map((el, i) => ( // this is the same as pokemonMap except it is only used for displaying the favorite pokemon
+                <Pokemon
+                    key={i}
+                    editFn={() => this.handleChangeEdit(el.pokemon_id)}
+                    cancelEditFn={() => this.cancelEdit()}
+                    pokemon={el}
+                    releaseFn={() => this.releasePokemon(el.pokemon_id)}
+                    editID={this.state.editPokemonID}
+                    edit={this.state.editPokemon}
+                    getPokemonFn={() => this.getPokemon()}
+                />
+            ))
+        const allPokemonMap = this.state.allPokemon
+            .filter(el => el.name.includes(this.state.pokemonSearch)) // checks to see if the pokemon name contains this.state.pokemonSearch
+            .map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
+                <div className='add-pokemon' key={i}>
+                    {el.name === this.state.nameCheck ? (<h4
+                        className="pokemon-name name-border"
+                        // id={this.state.}
+                        onClick={() =>
+
+                            this.toggleSelect(i + 1, el.name)
+                        }>{el.name}</h4>) : (<h4
+                            className="pokemon-name"
+                            // id={this.state.}
+                            onClick={() =>
+
+                                this.toggleSelect(i + 1, el.name)
+                            }>{el.name}</h4>)}
+
+                </div>
+            ))
         return (
             <div className="MyProfile">
                 <h1 onClick={() => console.log(this.state)}>{this.props.username}</h1>
@@ -255,24 +264,27 @@ class MyProfile extends Component {
                     )}
 
                 <button className="find-button" onClick={this.toggleAdd}>Find pokemon</button>
-                        
-                {this.state.addPokemon ? (<div>
-                <input className="search-input" type="text" onChange={e => this.handleChange(e, 'pokemonSearch')}/>
-                    <div className="pokemon-list">
 
-                    {allPokemonMap}
-                </div>
+                {this.state.addPokemon ? (<div className="selection-container">
+                    <input className="search-input" type="text" placeholder="Search" onChange={e => this.handleChange(e, 'pokemonSearch')} />
+                    <div className="list-and-image">
+                        <img src={this.state.pokemon_image} alt="" />
+                        <div className="pokemon-list">
+                            {allPokemonMap}
+                        </div>
+                    </div>
                     {this.state.pokemonSelected ?
                         <div className="input-container">
                             <h2>Name your pokemon here!</h2>
-                            <input type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
-                            <input type="checkbox" onChange={this.toggleShiny} />
+                            <input className="nickname" type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
+                            <input className="shiny-box" type="checkbox" onChange={this.toggleShiny} />
                         </div> : null}
-                    <img src={this.state.pokemon_image} alt="" />
                     <button className="catch-button" onClick={this.addPokemon}>Catch pokemon!</button>
                 </div>) : null}
                 {favoriteMap}
-                {pokemonMap}
+                <div className="pokemon-map" >
+                    {pokemonMap}
+                </div>
             </div>
         )
     }

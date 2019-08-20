@@ -19,7 +19,7 @@ export default class Pokemon extends Component {
 
     componentDidMount() {
         this.setName()
-        this.getType(this.props.pokemon.pokemon_image.replace(/\D/g, ''))
+        // this.getType(this.props.pokemon.pokemon_image.replace(/\D/g, ''))
         // console.log(this.state.type1)
     }
 

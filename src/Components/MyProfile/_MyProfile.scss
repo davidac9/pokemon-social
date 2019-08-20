@@ -3,6 +3,7 @@ $red: #a4031f;
 $purple: #240b36;
 $yellow: #f2dc5d;
 $gray: #565554;
+$blue: #003d5b;
 
 @mixin inputs($height, $width, $font-size) {
     height: $height;
@@ -95,12 +96,62 @@ $gray: #565554;
     }
 }
 .pokemon-list {
-    width: 200px;
+    width: 210px;
     height: 250px;
     overflow: auto;
-    text-align: center;
-    background: whitesmoke;
-    > .add-pokemon > .pokemon-name {
-        font-size: 1.5rem;
+    background: #00798c;
+    > .add-pokemon {
+        text-align: center;
+        // background: green;
+        > .pokemon-name {
+            color: white;
+            font-size: 1.9rem;
+            transition: 200ms;
     }
+        > .pokemon-name:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 10px blue;
+            transition: 200ms;
+        }
+        > .name-border {
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: blue;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            transition: 200ms;
+        }
+    }
+}
+.selection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        > .nickname {
+            @include inputs(50px, 200px, 20px)
+        }
+        > .nickname:focus {
+            @include input-focus($purple)
+        }
+
+        > .shiny-box {
+            height: 40px;
+        }
+    }
+}
+.list-and-image {
+    display: flex;
+    width: 350px;
+    justify-content: space-between;
+    align-items: center;
+}
+.pokemon-map {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
 }
