@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { setUser } from '../../ducks/reducer'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 class Profile extends Component {
@@ -67,11 +67,13 @@ class Profile extends Component {
         return (
             <div className="Profile">
                 {this.props.username === this.props.match.params.username ?
-                    (<button>edit profile</button>) : null}
+                    (<Link to={`/my-profile/${this.props.username}`}>
+                        <button>edit profile</button>
+                    </Link>) : null}
                 <h1>{this.props.match.params.username}</h1>
                 {this.state.profilePic.map((el, i) => (
-                    <div key={i}>
-                        <img src={el.profile_pic} alt="" />
+                    <div className="profile-pic-container" key={i}>
+                        <img className="profile-pic" src={el.profile_pic} alt="" />
                     </div>
                 ))}
                 <h1  >My Pokémon!</h1>

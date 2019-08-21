@@ -65,13 +65,15 @@ class Dashboard extends Component {
                     <div className="post" key={i}>
                         <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className="post-user">
                             <p>{el.username}</p>
-                            <img className="user-pic" src={el.profile_pic} alt="" />
-                            <img className="user-pic" src={el.pokemon_image} alt="" />
+                            <img className="user-pic user" src={el.profile_pic} alt="" />
+                            <img className="user-pic pokemon" src={el.pokemon_image} alt="" />
                             {/* <img className="user-pic" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"} alt="" /> */}
                         </div>
+                        <hr/>
+                        <div className="content-container">
                         <span>
-                            {el.post_text}
-                        </span>
+                        {el.post_text}
+                        </span></div>
                     </div>
                 ))}
             </div>

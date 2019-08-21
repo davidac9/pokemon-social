@@ -32,6 +32,12 @@ $fairy: #D685AD;
     // height: calc(100vh - 100px);
     // height: calc(100% - 100px);
     // overflow: auto;
+    > .profile-pic-container {
+        > .profile-pic {
+            max-height: 500px;
+            max-width: 500px;
+        }
+    }
 }
 
 .pokemon-inventory {

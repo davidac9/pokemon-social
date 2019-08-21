@@ -12,10 +12,11 @@ $landColor: #db9065;
     background: $landColor;
     height: calc(100vh - 100px);
     overflow: auto;
+    padding-bottom: 55px;
     >.new-post-container {
-        position: fixed;
-        left: 140px;
-        top: 150px;
+        // position: fixed;
+        // left: 140px;
+        // top: 150px;
         
         > .post-input {
             height: 50px;
@@ -50,29 +51,52 @@ $landColor: #db9065;
     >.post {
         border: black solid 3px;
         border-radius: 5px;
-        width: 450px;
+        width: 90vw;
         
         background: whitesmoke;
         margin-bottom: 10px;
-        padding: 25px;
+        // padding: 25px;
+        padding-top: 5px;
         // display: flex;
         // flex-direction: column;
         // justify-content: flex-start;
-        > .post-user > .user-pic {
-            width: 64px;
-            height: 64px;
-            border-radius: 15px;
-            // border: black solid 2px;
+        
+        > .post-user {
+            > .user {
+                border-radius: 50px;
+            }
+            > .user-pic {
+                width: 64px;
+                height: 64px;
+                // border-radius: 15px;
+                // border: black solid 2px;
+                > .user-pic:hover {
+                    cursor: pointer;
+                    
+                }
+
 
         }
+    }
         > .post-user > p {
             text-decoration: underline;
+            text-align: center;
         }
-        > span {
+        > .content-container {
+            padding: 10px;
+            min-height: 100px;
+            > span {
             overflow-wrap: break-word; 
             height: 100px;
+            // padding: 10px;
             // border: black solid 3px;
-            font-size: 24px;
+            font-size: 18px;
+            font-weight: 400;
+    }}
     }
-    }
+}
+hr {
+    color: black;
+    background: black;
+    border: 2px solid black
 }
