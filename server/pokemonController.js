@@ -5,11 +5,11 @@ module.exports = {
         // console.log(req.body)
         const pokemonCount = await db.count_pokemon(req.body.trainer_id)
         const pokemon = await db.insert_pokemon(req.body)
-        console.log(pokemonCount[0].count)
+        // console.log(pokemonCount[0].count)
         if (pokemonCount[0].count === '0') {
             const { trainer_id, pokemon_id } = pokemon[0]
             db.insert_favorite({ trainer_id, pokemon_id })
-            console.log(`help`)
+            // console.log(`help`)
         }
         return res.status(200).send(pokemon)
         // console.log(pokemonCount[0].count)
@@ -61,6 +61,10 @@ module.exports = {
     },
     getFavorite: async (req, res) => {
         const db = req.app.get('db')
+        if (req.query.trainer_id === undefined) {
+            const favorite = await db.select_favorite_by_username(req.query.username)
+            return res.status(200).send(favorite)
+        }
         const favorite = await db.select_favorite(req.query.trainer_id)
         return res.status(200).send(favorite)
     }

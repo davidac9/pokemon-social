@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setUser } from '../../ducks/reducer'
 

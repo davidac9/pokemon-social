@@ -8,7 +8,9 @@ class Profile extends Component {
     state = {
         myPokemon: [],
         allPokemon: [],
-        profilePic: []
+        profilePic: [],
+        myFavorite: [],
+        myFavoriteID: 0
     }
     getPokemon = () => {
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon =>
@@ -37,12 +39,29 @@ class Profile extends Component {
         this.getProfilePic()
         // this.getAllPokemon()
         this.getPokemon()
+        this.getFavorite()
+    }
+    getFavorite = () => {
+        axios.get(`/api/favorite/pokemon?username=${this.props.match.params.username}`).then(res => {
+            this.setState({
+                myFavorite: res.data,
+                myFavoriteID: res.data[0].pokemon_id
+            })
+        }
+        )
+            .catch(err => console.log(`couldn't get favorite`))
     }
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => (
-            <div key={i}>
+            <div  className={`pokemon-container `} key={i}>
                 <h4>{el.nick_name}</h4>
-                <img src={el.pokemon_image} alt="" />
+                <img className={`pokemon-image ${el.type_1}`} src={el.pokemon_image} alt="" />
+            </div>
+        ))
+        const favoriteMap = this.state.myFavorite.map((el, i) => (
+            <div className={`pokemon-container`} key={i}>
+                <h4>{el.nick_name}</h4>
+                <img className={`pokemon-image favorite-image ${el.type_1}`} src={el.pokemon_image} alt="" />
             </div>
         ))
         return (
@@ -55,7 +74,13 @@ class Profile extends Component {
                         <img src={el.profile_pic} alt="" />
                     </div>
                 ))}
+                <h1  >My Pokémon!</h1>
+<div className="pokemon-inventory favorite-inventory">
+{favoriteMap}
+</div>
+                <div className="pokemon-inventory">
                 {pokemonMap}
+                </div>
             </div>
         )
     }

@@ -1,6 +1,112 @@
+$font: 'Fredoka One';
+$red: #a4031f;
+$purple: #240b36;
+$yellow: #f2dc5d;
+$gray: #565554;
+$blue: #003d5b;
+$normal: #A8A77A;
+$fire: #EE8130;
+$water: #6390F0;
+$electric: #F7D02C;
+$grass: #7AC74C;
+$ice: #96D9D6;
+$fighting: #C22E28;
+$poison: #A33EA1;
+$ground: #E2BF65;
+$flying: #A98FF3;
+$psychic: #F95587;
+$bug:  #A6B91A;
+$rock:  #B6A136;
+$ghost: #735797;
+$dragon: #6F35FC;
+$dark: #705746;
+$steel: #B7B7CE;
+$fairy: #D685AD;
+
 .Profile {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background: $yellow;
+    // height: calc(100vh - 100px);
+    // height: calc(100% - 100px);
+    // overflow: auto;
 }
+
+.pokemon-inventory {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    > .pokemon-container {
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+        > .pokemon-image {
+            border: black solid 1px;
+            border-radius: 25px;
+            max-width: 98px;
+            
+        }
+        > .favorite-image {
+            min-width: 128px;
+
+        }
+        > .steel {
+            background: $steel
+        }
+        > .dark {
+            background: $dark;
+        }
+        > .ghost {
+            background: $ghost;
+        }
+        > .rock {
+            background: $rock;
+        }
+        > .bug {
+            background: $bug;
+        }
+        > .psychic {
+            background: $psychic;
+        }
+        > .flying {
+            background: $flying;
+        }
+        > .ground {
+            background: $ground;
+        }
+        > .poison {
+            background: $poison;
+        }
+        > .fighting {
+            background: $fighting;
+        }
+        > .ice {
+            background: $ice;
+        }
+        > .grass {
+            background: $grass;
+        }
+        > .dragon {
+            background: $dragon;
+        }
+        > .water {
+            background: $water;
+        }
+        > .electric {
+            background: $electric;
+        }
+        > .fire {
+            background: $fire;
+        }
+        > .normal {
+            background: $normal;
+        }
+        > .fairy {
+            background: $fairy;
+        }
+    }
+}
+

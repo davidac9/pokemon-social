@@ -17,6 +17,89 @@ $dark: #705746;
 $steel: #B7B7CE;
 $fairy: #D685AD;
 
+@mixin inputs($height, $width, $font-size) {
+    height: $height;
+    width: $width;
+    font-size: $font-size;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    transition: 500ms;
+    border: rgba(0, 0, 0, 0.178) solid 1px;
+
+}
+@mixin input-focus($shadow-color) {
+    box-shadow: 0px 0px 10px $shadow-color;
+    transition: 500ms;
+}
+
+.name-input {
+    transition: 500ms;
+    @include inputs(40px, 170px, 17px);
+}
+
+.name-input:focus {
+    @include input-focus($dark)
+}
+
+@mixin buttons($button-color) {
+    background: $button-color;
+    height: 40px;
+    width: 70px;
+    color: whitesmoke;
+    border: none;
+    border-radius: 25px;
+    font-size: 17px;
+    margin: 0.5rem;
+    transition: 500ms;
+    border: rgba(0, 0, 0, 0.178) solid 1px;
+    
+}
+
+@mixin buttons-hover($shadow-color){
+    cursor: pointer;
+    box-shadow: 0px 0px 10px $shadow-color;
+    transition: 500ms;
+}
+
+
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    > .confirm-favorite {
+        > .confirm-button {
+            @include buttons($water)
+        }
+        > .confirm-button:hover {
+            @include buttons-hover($water)
+        }
+        > .favorite-button {
+            @include buttons($grass)
+        }
+        > .favorite-button:hover {
+            @include buttons-hover($grass)
+        }
+        
+    }
+    > .release-cancel {
+        > .release-button {
+            @include buttons($dark)
+        }
+        > .release-button:hover {
+            @include buttons-hover($dark)
+        }
+        > .cancel-button {
+            @include buttons($fighting)
+        }
+        > .cancel-button:hover {
+            @include buttons-hover($fighting)
+        }
+    }
+}
+
 .my-pokemon {
 
     > .content {
@@ -29,8 +112,11 @@ $fairy: #D685AD;
             min-width: 128px;
             border-radius: 25px;
             margin: 5px;
-            border: black solid 1px
+            border: black solid 1px;
 
+        }
+        > .pokemon-image:hover {
+            cursor: pointer;
         }
         > .steel {
             background: $steel
@@ -46,7 +132,12 @@ $fairy: #D685AD;
         }
         > .bug {
             background: $bug;
+            // transition: 500ms;
         }
+    //     > .bug:hover {
+    //         box-shadow: 0px 0px 35px $bug;
+    // transition: 500ms;
+    //     }
         > .psychic {
             background: $psychic;
         }

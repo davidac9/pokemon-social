@@ -181,7 +181,6 @@ class MyProfile extends Component {
     }
     getFavorite = () => {
         axios.get(`/api/favorite/pokemon?trainer_id=${this.props.trainer_id}`).then(res => {
-            // console.log(res)
             this.setState({
                 myFavorite: res.data,
                 myFavoriteID: res.data[0].pokemon_id
@@ -276,7 +275,7 @@ class MyProfile extends Component {
                     {this.state.pokemonSelected ?
                         <div className="input-container">
                             <h2>Name your pokemon here!</h2>
-                            <input className="nickname" type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
+                            <input maxLength="15" className="nickname" type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
                             <input className="shiny-box" type="checkbox" onChange={this.toggleShiny} />
                         </div> : null}
                     <button className="catch-button" onClick={this.addPokemon}>Catch pokemon!</button>
