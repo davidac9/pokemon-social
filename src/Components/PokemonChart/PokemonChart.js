@@ -7,10 +7,11 @@ class PokemonChart extends Component {
         const data = [12, 5, 6, 6, 9, 10]
 
         const svg = d3.select("body")
-        .append("svg")
-        .attr("width", 500)
-        .attr("height", 300)
-        .style("margin-left", 200)
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 500)
+            .style("padding", 300)
+            // .style("margin", 100)
         svg.selectAll("rect")
             .data(data)
             .enter()
@@ -20,6 +21,18 @@ class PokemonChart extends Component {
             .attr("width", 50)
             .attr("height", (d, i) => d * 10)
             .attr("fill", "green")
+
+
+
+        svg.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .text((d) => d)
+            .attr("x", (d, i) => i * 70)
+            .attr("y", (d, i) => 297 - d * 10)
+
+
         // Selection.attr("property", (d, i) => {})
     }
 
