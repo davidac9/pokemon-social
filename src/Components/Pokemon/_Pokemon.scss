@@ -103,7 +103,7 @@ $fairy: #D685AD;
 }
 
 .my-pokemon {
-
+    // height: 168px;
     > .content {
         display: flex;
         // justify-content: center;
@@ -113,7 +113,8 @@ $fairy: #D685AD;
             position: relative;
             @keyframes mymove {
                 0% {top: -100px;
-                    display:none;}
+                    z-index: -1;
+                    display:hidden !important;}
                 100% {top: 0px;
                     display: inline-block;}
             }
@@ -126,7 +127,7 @@ $fairy: #D685AD;
         > .pokemon-image {
             min-width: 128px;
             border-radius: 25px;
-            margin: 5px;
+            margin: 10px;
             border: black solid 1px;
 
         }
