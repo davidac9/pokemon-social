@@ -69,8 +69,8 @@ export default class Pokemon extends Component {
                     <h4 onClick={() => editFn()}>{pokemon.nick_name}</h4>
                     <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
-                    {edit === true && editID === pokemon.pokemon_id ? (<>
-                        <h4>update name</h4>
+                    {edit === true && editID === pokemon.pokemon_id ? (<div className="edit-container">
+                        <h4 className="update-name">update name</h4>
                         <input className="name-input" type="text" placeholder="New name here" onChange={e => this.handleChange(e)} maxLength="15" value={this.state.nick_name} />
                         <div className="button-container">
                             <div className="confirm-favorite">
@@ -79,13 +79,12 @@ export default class Pokemon extends Component {
                             </div>
                             <div className="release-cancel">
                                 <button className="release-button" onClick={() => {
-                            releaseFn()
-                            this.props.getPokemonFn()
-                            // this.getType()
-                            }}>Release</button>
-                            <button className="cancel-button" onClick={() => this.cancelName()} >Cancel</button></div>
+                                    releaseFn()
+                                    this.props.getPokemonFn()
+                                }}>Release</button>
+                                <button className="cancel-button" onClick={() => this.cancelName()} >Cancel</button></div>
                         </div>
-                    </>)
+                    </div>)
 
                         :
 

@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-// import * as d3 from 'd3'
 import axios from 'axios'
 import { setUser } from '../../ducks/reducer'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Pokemon from '../Pokemon/Pokemon'
-import PokemonChart from '../PokemonChart/PokemonChart'
 
 class MyProfile extends Component {
     state = {
@@ -251,8 +249,8 @@ class MyProfile extends Component {
             ))
         return (
             <div className="MyProfile">
-                <div className="chart-container">
-                <PokemonChart/></div>
+                {/* <div className="chart-container">
+                <PokemonChart/></div> */}
 
                 <h1 onClick={() => console.log(this.state)}>{this.props.username}</h1>
                 <img className="profile-pic" src={this.props.profile_pic} alt="" />

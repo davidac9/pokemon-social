@@ -17,6 +17,8 @@ $dark: #705746;
 $steel: #B7B7CE;
 $fairy: #D685AD;
 
+
+
 @mixin inputs($height, $width, $font-size) {
     height: $height;
     width: $width;
@@ -107,7 +109,20 @@ $fairy: #D685AD;
         // justify-content: center;
         flex-direction: column;
         align-items: center;
-        
+        > .edit-container {
+            position: relative;
+            @keyframes mymove {
+                0% {top: -100px;
+                    display:none;}
+                100% {top: 0px;
+                    display: inline-block;}
+            }
+            animation: mymove 0.6s ;
+            > .update-name {
+                text-align: center;
+            }
+
+        }
         > .pokemon-image {
             min-width: 128px;
             border-radius: 25px;

@@ -7,6 +7,7 @@ const authCtrl = require('./authController')
 const postCtrl = require('./postController')
 const pokemonCtrl = require('./pokemonController')
 const profileCtrl = require('./profileController')
+const stripeCtrl = require('./stripeController')
 
 const app = express()
 
@@ -45,6 +46,9 @@ app.put('/api/pokemon', pokemonCtrl.renamePokemon) // back end stuff works. go m
 app.post('/api/favorite/pokemon', pokemonCtrl.chooseFavorite) // this sets the user's first pokemon as their favorite
 app.get('/api/favorite/pokemon', pokemonCtrl.getFavorite) // displays a user's favorite pokemon
 app.put(`/api/favorite/pokemon`, pokemonCtrl.updateFavorite) // lets the user change their favorite pokemon
+
+// stripe stuff
+app.post('/api/payment', stripeCtrl.pay)
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
