@@ -57,7 +57,7 @@ class Dashboard extends Component {
             <div className="Dashboard">
                 <div className="new-post-container">
                     <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput} />
-                    <button onClick={this.addPost}>add post</button>
+                    <button className="add-post" onClick={this.addPost}>post</button>
                 </div>
                 <div className="post-container">
                     {this.state.posts.map((el, i) => (

@@ -77,10 +77,11 @@ $blue: #003d5b;
     @include buttons-hover($red)
 }
 .find-button {
-    @include buttons(100px, $purple)
+    @include buttons(100px, $purple);
+    margin-bottom: 0px;
 }
 .find-button:hover {
-    @include buttons-hover($purple)
+    @include buttons-hover($purple);
 }
 
 
@@ -107,6 +108,7 @@ $blue: #003d5b;
     width: 210px;
     height: 250px;
     overflow: auto;
+    overflow-x: hidden;
     background: #00798c;
     > .add-pokemon {
         text-align: center;
@@ -136,6 +138,16 @@ $blue: #003d5b;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    @keyframes mymove {
+        0% {top: -100px;
+            z-index: -1;
+            display: hidden !important;}
+        100% {top: 0px;
+            display: inline-block;
+        }
+    }
+    animation: mymove 0.6s;
     > .input-container {
         display: flex;
         flex-direction: column;

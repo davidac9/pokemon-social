@@ -76,13 +76,24 @@ class MyProfile extends Component {
             nameCheck: pokemonName,
             // pokemon_image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
         })
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(pokemon =>
+        if (this.state.shiny === true) {
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(pokemon =>
+            this.setState({
+                pokemonSelectedID: pokemon.data.id,
+                pokemon_image: pokemon.data.sprites.front_shiny,
+                type_1: pokemon.data.types.filter(el => el.slot === 1)[0].type.name
+            })
+        )
+        }
+        else {
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(pokemon =>
             this.setState({
                 pokemonSelectedID: pokemon.data.id,
                 pokemon_image: pokemon.data.sprites.front_default,
                 type_1: pokemon.data.types.filter(el => el.slot === 1)[0].type.name
             })
-        )
+            )
+        }
 
 
     }
@@ -116,6 +127,9 @@ class MyProfile extends Component {
     addPokemon = () => { // this adds the selected pokemon from the list to the user's pokemon then calls the function to get the user's pokemon and profile pic
         const { trainer_id } = this.props
         const { nick_name, pokemon_image, type_1 } = this.state
+        if (nick_name.length > 15) {
+            return alert(`your pokemon's name can't be that long!`)
+        }
         axios.post(`/api/pokemon`, { trainer_id, pokemon_image, nick_name, type_1 }).then(res => {
             this.getPokemon()
             // this.getProfilePic()
@@ -228,7 +242,7 @@ class MyProfile extends Component {
                 />
             ))
         const allPokemonMap = this.state.allPokemon
-            .filter(el => el.name.includes(this.state.pokemonSearch)) // checks to see if the pokemon name contains this.state.pokemonSearch
+            .filter(el => el.name.includes(this.state.pokemonSearch.toLowerCase())) // checks to see if the pokemon name contains this.state.pokemonSearch
             .map((el, i) => ( // this displays the list of all pokemon and the user can select from the list and name the pokemon if they want and choose whether or not it is shiny before they add it
                 <div className='add-pokemon' key={i}>
                     {el.name === this.state.nameCheck ? (<h4
@@ -265,9 +279,12 @@ class MyProfile extends Component {
                         </>
                     )}
 
-                <button className="find-button" onClick={this.toggleAdd}>Find pokemon</button>
 
-                {this.state.addPokemon ? (<div className="selection-container">
+                {this.state.addPokemon ? (
+                    <>
+                    <button className="find-button" onClick={this.toggleAdd}>Cancel</button>
+                    <div className="selection-container">
+
                     <input className="search-input" type="text" placeholder="Search" onChange={e => this.handleChange(e, 'pokemonSearch')} />
                     <div className="list-and-image">
                         <img src={this.state.pokemon_image} alt="" />
@@ -282,7 +299,13 @@ class MyProfile extends Component {
                             <input className="shiny-box" type="checkbox" onChange={this.toggleShiny} />
                         </div> : null}
                     <button className="catch-button" onClick={this.addPokemon}>Catch pokemon!</button>
-                </div>) : null}
+                </div></>) : 
+                <>
+                <button className="find-button" onClick={this.toggleAdd}>Find pokemon</button>
+
+                </>
+            
+            }
                 {favoriteMap}
                 <div className="pokemon-map" >
                     {pokemonMap}

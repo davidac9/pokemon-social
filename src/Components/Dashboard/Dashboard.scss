@@ -39,7 +39,6 @@ $fairy: #d685ad;
       background: whitesmoke;
       margin-bottom: 10px;
 
-
       > .post-user {
         > .username {
           margin-left: 25px;
@@ -164,7 +163,25 @@ $fairy: #d685ad;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    > .add-post {
+      color: white;
+      background: $ice;
+      border: none;
+      height: 35px;
+      border-radius: 25px;
+      padding-left: 13px;
+      padding-right: 13px;
+      font-family: sans-serif;
+      font-size: 14px;
+      transition: 500ms;
+      margin: 3px;
+      border: rgba(0, 0, 0, 0.178) solid 1px;
+    }
+    > .add-post:hover {
+      cursor: pointer;
+    box-shadow: 0px 0px 10px $ice;
+    transition: 500ms;
+    }
     > .post-input {
       height: 100px;
       width: 75vw;
@@ -200,4 +217,3 @@ $fairy: #d685ad;
     // }
   }
 }
-
