@@ -33,7 +33,7 @@ class Landing extends Component {
         return (
             <div className="Landing">
                 <div className="login">
-                    <h1>Login</h1>
+                    <p className="login-title">Login</p>
                     <div className="inputs">
                         <div className="username">
                             <input type="text" placeholder="Username" onChange={e =>this.handleChange(e, 'usernameInput')}/>

@@ -10,7 +10,7 @@ $yellow: #f2dc5d;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 100px);
+    min-height: calc(100% - 100px);
     width: 100vw;
     > .buttons {
         display: flex;
@@ -45,9 +45,12 @@ $yellow: #f2dc5d;
         align-items: center;
         flex-direction: column;
         border-radius: 25px;
-        > h1 {
+        box-shadow: rgba(0, 0, 0, 0.205) 0px 10px 10px 10px;
+        > .login-title {
             text-align: center;
             width: 100px;
+            font-family: $font;
+            font-size: 2rem
         }
         > .login-button {
             margin: 0px 0px 0px 0px;
@@ -65,6 +68,7 @@ $yellow: #f2dc5d;
             cursor: pointer;
             box-shadow: 0px 0px 10px $purple;
             transition: 500ms;
+            // border: black solid 1px;
         }
         > .inputs {
             display: flex;
@@ -82,7 +86,9 @@ $yellow: #f2dc5d;
                 padding-left: 8px;
                 border-radius: 25px;
                 border: none;
-                transition: 500ms
+                transition: 500ms;
+                border: rgba(0, 0, 0, 0.233) solid 1px;
+
             }
             > .username > input:focus, > .password > input:focus {
                 // border: black solid 2px;

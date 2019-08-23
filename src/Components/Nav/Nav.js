@@ -21,9 +21,9 @@ class Nav extends Component {
     render() {
         return (
             <div className='true-nav'>
-                <div className='Nav'>
                     {this.props.username !== '' ?
                     <>
+                    <div className='Nav'>
                         {/* <div className="side-box"> */}
 
                         <Link className="my-profile-link" to={`/my-profile/${this.props.username}`}>
@@ -34,12 +34,17 @@ class Nav extends Component {
                             <button className="logout-button" onClick={this.logout} >X</button>
                         </Link>
                         {/* </div> */}
+                </div>
                     </>
                 
                 : 
-                null
+                <>
+                    <div className="Nav Nav-login">
+                        <h1 className="poke">Poké</h1>
+                    </div>
+
+                </>
                 }
-                </div>
                     
             </div>
         )
