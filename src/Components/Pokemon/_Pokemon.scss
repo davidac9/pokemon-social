@@ -63,7 +63,8 @@ $fairy: #D685AD;
 @mixin buttons-hover($shadow-color){
     cursor: pointer;
     box-shadow: 0px 0px 10px $shadow-color;
-    transition: 500ms;
+    transition: 0ms;
+    border: rgba(0, 0, 0, 0.28) solid 5px;
 }
 
 
@@ -135,59 +136,150 @@ $fairy: #D685AD;
             cursor: pointer;
         }
         > .steel {
-            background: $steel
+            background: $steel;
+            transition: 400ms;
         }
         > .dark {
             background: $dark;
+            transition: 400ms;
         }
         > .ghost {
             background: $ghost;
+            transition: 400ms;
         }
         > .rock {
             background: $rock;
+            transition: 400ms;
         }
         > .bug {
             background: $bug;
+            transition: 400ms;
         }
 
         > .psychic {
             background: $psychic;
+            transition: 400ms;
         }
         > .flying {
             background: $flying;
+            transition: 400ms;
         }
         > .ground {
             background: $ground;
+            transition: 400ms;
         }
         > .poison {
             background: $poison;
+            transition: 400ms;
         }
         > .fighting {
             background: $fighting;
+            transition: 400ms;
         }
         > .ice {
             background: $ice;
+            transition: 400ms;
         }
         > .grass {
             background: $grass;
+            transition: 400ms;
         }
         > .dragon {
             background: $dragon;
+            transition: 400ms;
         }
         > .water {
             background: $water;
+            transition: 400ms;
         }
         > .electric {
             background: $electric;
+            transition: 400ms;
         }
         > .fire {
             background: $fire;
+            transition: 400ms;
         }
         > .normal {
             background: $normal;
+            transition: 400ms;
         }
         > .fairy {
             background: $fairy;
+            transition: 400ms;
+        }
+        > .steel:hover {
+            // background: $steel
+            @include buttons-hover($steel);
+        }
+        > .dark:hover {
+            // background: $dark;
+            @include buttons-hover($dark);
+        }
+        > .ghost:hover {
+            // background: $ghost;
+            @include buttons-hover($ghost);
+        }
+        > .rock:hover {
+            // background: $rock;
+            @include buttons-hover($rock);
+        }
+        > .bug:hover {
+            // background: $bug;
+            @include buttons-hover($bug);
+        }
+
+        > .psychic:hover {
+            // background: $psychic;
+            @include buttons-hover($psychic);
+        }
+        > .flying:hover {
+            // background: $flying;
+            @include buttons-hover($flying);
+        }
+        > .ground:hover {
+            // background: $ground;
+            @include buttons-hover($ground);
+        }
+        > .poison:hover {
+            // background: $poison;
+            @include buttons-hover($poison);
+        }
+        > .fighting:hover {
+            // background: $fighting;
+            @include buttons-hover($fighting);
+        }
+        > .ice:hover {
+            // background: $ice;
+            @include buttons-hover($ice);
+        }
+        > .grass:hover {
+            // background: $grass;
+            @include buttons-hover($grass);
+        }
+        > .dragon:hover {
+            // background: $dragon;
+            @include buttons-hover($dragon);
+        }
+        > .water:hover {
+            // background: $water;
+            @include buttons-hover($water);
+        }
+        > .electric:hover {
+            // background: $electric;
+            @include buttons-hover($electric);
+        }
+        > .fire:hover {
+            // background: $fire;
+            @include buttons-hover($fire);
+        }
+        > .normal:hover {
+            // background: $normal;
+            @include buttons-hover($normal);
+        }
+        > .fairy:hover {
+            // background: $fairy;
+            @include buttons-hover($fairy);
         }
     }
 }

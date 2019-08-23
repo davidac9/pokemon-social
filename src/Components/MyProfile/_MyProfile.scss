@@ -98,6 +98,8 @@ $blue: #003d5b;
     min-height: calc(100% - 100px);
     padding-bottom: 90px;
     > .profile-pic {
+        border-radius: 50%;
+        border: black solid 3px;
         max-width: 100vw;
     }
 }
