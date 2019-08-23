@@ -59,15 +59,16 @@ class Dashboard extends Component {
                     <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput} />
                     <button onClick={this.addPost}>add post</button>
                 </div>
-                <h1>dashboard</h1>
                 <div className="post-container">
                     {this.state.posts.map((el, i) => (
 
                         <div className="post" key={i}>
-                            <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className="post-user">
-                                <p>{el.username}</p>
-                                <img className="user-pic user" src={el.profile_pic} alt="" />
-                                <img className="user-pic pokemon" src={el.pokemon_image} alt="" />
+                            <div  className="post-user">
+                                <p className="username">{el.username}</p>
+                                <div onClick={() => this.props.history.push(`/profile/${el.username}`)} className={`image-container ${el.type_1}`}>
+                                    <img className="user-pic user" src={el.profile_pic} alt="" />
+                                    <img className="user-pic pokemon" src={el.pokemon_image} alt="" />
+                                </div>
                                 {/* <img className="user-pic" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"} alt="" /> */}
                             </div>
                             <hr />

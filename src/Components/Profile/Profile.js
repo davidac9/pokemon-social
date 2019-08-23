@@ -67,7 +67,7 @@ class Profile extends Component {
     render() {
         const pokemonMap = this.state.myPokemon.map((el, i) => (
             <div className={`pokemon-container `} key={i}>
-                <h4>{el.nick_name}</h4>
+                <p>{el.nick_name}</p>
                 <img className={`pokemon-image ${el.type_1}`} src={el.pokemon_image} alt="" />
             </div>
         ))

@@ -127,15 +127,18 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   > .pokemon-container {
-    margin-left: 10px;
-    margin-right: 10px;
+    // margin: 10px;
+    // margin-left: 10px;
+    // margin-right: 10px;
     text-align: center;
     > .pokemon-image {
       border: black solid 1px;
       border-radius: 25px;
-      max-width: 98px;
-      margin-left: 11px;
-      margin-right: 11px;
+      min-width: 128px;
+      max-width: 128px;
+      margin: 10px;
+      // margin-left: 11px;
+      // margin-right: 11px;
     }
     > .favorite-image {
       min-width: 128px;

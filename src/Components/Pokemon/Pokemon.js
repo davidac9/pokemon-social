@@ -66,7 +66,7 @@ export default class Pokemon extends Component {
         return (
             <div className="my-pokemon" >
                 <div className="content" >
-                    <h4 onClick={() => editFn()}>{pokemon.nick_name}</h4>
+                    <p onClick={() => editFn()}>{pokemon.nick_name}</p>
                     <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
 
                     {edit === true && editID === pokemon.pokemon_id ? (<div className="edit-container">
