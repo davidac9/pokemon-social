@@ -10,6 +10,7 @@ const profileCtrl = require('./profileController')
 const stripeCtrl = require('./stripeController')
 
 const app = express()
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(express.json())
 
@@ -22,7 +23,6 @@ app.use(session({
     }
 }))
 
-app.use( express.static( `${__dirname}/../build` ) );
 
 // endpoints for auth
 app.post('/api/auth/register', authCtrl.register)
