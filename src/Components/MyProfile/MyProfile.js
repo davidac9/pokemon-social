@@ -101,7 +101,7 @@ class MyProfile extends Component {
         axios.get(`/api/pokemon?username=${this.props.match.params.username}`).then(pokemon => {
             this.setState({
                 myPokemon: pokemon.data
-                // .sort((a, b) => { return a.pokemon_id - b.pokemon_id })
+                .sort((a, b) => { return a.pokemon_id - b.pokemon_id })
             })
             this.getFavorite()
         }
@@ -165,9 +165,16 @@ class MyProfile extends Component {
         })
         this.getPokemon()
     }
+    // checkUser = () => {
+    //     if(this.props.username !== this.props.match.params.username) {
+    //         this.props.history.push(`/my-profile/${this.props.username}`)
+    //     }
+    // }
     componentDidMount() { // on mount functions run to get the list of all pokemon and the array of the user's pokemon
         // this.getProfilePic()
+        // this.checkUser()
         this.getAllPokemon()
+        this.getPokemon()
         this.getPokemon()
     }
     shinyCheck = () => { // this checks if a selected pokemon is shiny or not and updates the pokemon image
@@ -266,7 +273,7 @@ class MyProfile extends Component {
                 {/* <div className="chart-container">
                 <PokemonChart/></div> */}
 
-                <h1 onClick={() => console.log(this.state)}>{this.props.username}</h1>
+                <h1 onClick={() => console.log(this.props)}>{this.props.username}</h1>
                 <img className="profile-pic" src={this.props.profile_pic} alt="" />
                 {this.state.editProfilePic ? (
                     <>

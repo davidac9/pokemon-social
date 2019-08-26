@@ -74,6 +74,8 @@ $fairy: #d685ad;
     > .profile-pic {
       max-height: 500px;
       max-width: 100%;
+      border: black solid 2px;
+      border-radius: 50%;
     }
   }
 }

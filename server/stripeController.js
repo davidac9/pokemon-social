@@ -17,7 +17,9 @@ module.exports = {
                     return res.status(500).send(err)
 
                 } else {
-                    console.log('Successful payment', charge)
+                    console.log('Successful payment'
+                    // , charge
+                    )
 
                     return res.status(200).send(charge)
                 }

@@ -61,7 +61,7 @@ class Profile extends Component {
         token.card = void 0
         axios.post('/api/payment', { token, amount: this.state.amount }).then(res => {
             console.log(res)
-            alert(`Congratulations you paid me ${amount}!`)
+            alert(`Congratulations you paid me $${amount}!`)
         })
     }
     render() {
@@ -101,12 +101,10 @@ class Profile extends Component {
                                 // ComponentClass="div" //initial default button styling on block scope (defaults to span)
                                 panelLabel="Donate" //text on the submit button
                                 locale="en" //locale or language (e.g. en=english, fr=french, zh=chinese)
-                                opened={this.onOpened} //fires cb when stripe is opened
-                                closed={this.onClosed} //fires cb when stripe is closed
-                                allowRememberMe={false} // "Remember Me" option (default true)
-                                billingAddress={false}
+                                // allowRememberMe={false} // "Remember Me" option (default true)
+                                // billingAddress={false}
                                 // shippingAddress //you can collect their address
-                                zipCode={false}
+                                // zipCode={false}
                             >
                                 {/* <button>Checkout</button> */}
                             </StripeCheckout>

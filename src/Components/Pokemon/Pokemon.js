@@ -67,7 +67,11 @@ export default class Pokemon extends Component {
             <div className="my-pokemon" >
                 <div className="content" >
                     <p onClick={() => editFn()}>{pokemon.nick_name}</p>
-                    <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => editFn()} src={pokemon.pokemon_image} alt="" />
+                    <img className={`pokemon-image ${pokemon.type_1}`} onClick={() => {
+                        editFn()
+                        this.props.getPokemonFn()
+                        this.props.getPokemonFn()
+                    }} src={pokemon.pokemon_image} alt="" />
 
                     {edit === true && editID === pokemon.pokemon_id ? (<div className="edit-container">
                         <h4 className="update-name">update name</h4>
@@ -80,6 +84,8 @@ export default class Pokemon extends Component {
                             <div className="release-cancel">
                                 <button className="release-button" onClick={() => {
                                     releaseFn()
+                                    // releaseFn()
+                                    this.props.getPokemonFn()
                                     this.props.getPokemonFn()
                                 }}>Release</button>
                                 <button className="cancel-button" onClick={() => this.cancelName()} >Cancel</button></div>
