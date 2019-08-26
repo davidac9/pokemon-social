@@ -303,7 +303,9 @@ class MyProfile extends Component {
                         <div className="input-container">
                             <h2>Name your pokemon here!</h2>
                             <input maxLength="15" className="nickname" type="text" value={this.state.nick_name} onChange={e => this.handleChange(e, 'nick_name')} />
-                            <input className="shiny-box" type="checkbox" onChange={this.toggleShiny} />
+                            <div className="shiny-box-container">
+                            Shiny?
+                            <input className="shiny-box" type="checkbox" onChange={this.toggleShiny} /></div>
                         </div> : null}
                     <button className="catch-button" onClick={this.addPokemon}>Catch pokemon!</button>
                 </div></>) : 

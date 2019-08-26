@@ -8,6 +8,7 @@ const postCtrl = require('./postController')
 const pokemonCtrl = require('./pokemonController')
 const profileCtrl = require('./profileController')
 const stripeCtrl = require('./stripeController')
+const path = require('path');
 
 const app = express()
 
@@ -21,6 +22,8 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 10
     }
 }))
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 // endpoints for auth
 app.post('/api/auth/register', authCtrl.register)
@@ -49,6 +52,10 @@ app.put(`/api/favorite/pokemon`, pokemonCtrl.updateFavorite) // lets the user ch
 
 // stripe stuff
 app.post('/api/payment', stripeCtrl.pay)
+
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

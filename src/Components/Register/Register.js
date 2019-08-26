@@ -25,7 +25,7 @@ class Register extends Component {
         axios.post('/api/auth/register', {username, password, profile_pic}).then(res => {
             const {username, trainer_id, profile_pic} = res.data.user
             this.props.setUser({username, trainer_id, profile_pic})
-            this.props.history.push('/dashboard')
+            this.props.history.push(`/my-profile/${username}`)
         })
         .catch(err => {alert('Failed to register. Try again')})
         

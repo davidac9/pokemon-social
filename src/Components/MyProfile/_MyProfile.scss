@@ -159,8 +159,9 @@ $blue: #003d5b;
             @include input-focus($purple)
         }
 
-        > .shiny-box {
-            height: 40px;
+        > .shiny-box-container > .shiny-box {
+            margin-left: 10px;
+            margin-top: 3px;
         }
     }
 }
