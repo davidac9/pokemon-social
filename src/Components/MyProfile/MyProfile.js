@@ -277,7 +277,8 @@ class MyProfile extends Component {
                 <img className="profile-pic" src={this.props.profile_pic} alt="" />
                 {this.state.editProfilePic ? (
                     <>
-                        <input className="profile-pic-input" type="text" onChange={e => this.handleChange(e, 'profile_pic')} />
+                        
+                        <input className="profile-pic-input" placeholder="new image url" type="text" onChange={e => this.handleChange(e, 'profile_pic')} />
                         <button className="confirm-pic" onClick={this.updateProfilePic} >Confirm</button>
                         <button className="cancel-pic" onClick={this.toggleEditProfilePic} >Cancel</button>
                     </>) : (

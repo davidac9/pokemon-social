@@ -79,7 +79,7 @@ class Profile extends Component {
         ))
         return (
             <div className="Profile">
-                {this.props.match.params.username === 'red' ?
+                {this.props.match.params.username === 'david' ?
                     (
                         <div className="stripe" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
                             <h1 className="donate-here">Donate to the developer here!</h1>

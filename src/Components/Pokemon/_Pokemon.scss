@@ -115,7 +115,8 @@ $fairy: #D685AD;
             @keyframes mymove {
                 0% {top: -100px;
                     z-index: -1;
-                    display:hidden !important;}
+                    // display:hidden !important;
+                }
                 100% {top: 0px;
                     display: inline-block;}
             }
@@ -126,6 +127,9 @@ $fairy: #D685AD;
 
         }
         > .pokemon-image {
+            width: 128px;
+            height: 128px;
+            min-height: 128px;
             min-width: 128px;
             border-radius: 25px;
             margin: 10px;
