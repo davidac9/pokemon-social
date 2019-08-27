@@ -55,6 +55,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="Dashboard">
+                <p className="trainer-tip">Click a trainer's profile image to see their pokemon. </p><p className="trainer-tip">Click your profile image in the top left to edit your profile.</p>
                 <div className="new-post-container">
                     <textarea className="post-input" type="text" placeholder="Create new post" onChange={e => this.handleChange(e, 'postInput')} value={this.state.postInput} />
                     <button className="add-post" onClick={this.addPost}>post</button>

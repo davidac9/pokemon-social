@@ -79,6 +79,7 @@ class Profile extends Component {
         ))
         return (
             <div className="Profile">
+                <p className="trainer-tip">Click on Poké to view posts from other users</p>
                 {this.props.match.params.username === 'david' ?
                     (
                         <div className="stripe" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>

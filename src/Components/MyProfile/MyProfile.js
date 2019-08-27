@@ -272,6 +272,7 @@ class MyProfile extends Component {
             <div className="MyProfile">
                 {/* <div className="chart-container">
                 <PokemonChart/></div> */}
+                <p className="trainer-tip">Click on Poké to view posts from other users</p>
 
                 <h1 onClick={() => console.log(this.props)}>{this.props.username}</h1>
                 <img className="profile-pic" src={this.props.profile_pic} alt="" />
